@@ -9,8 +9,8 @@ import { DocenteService } from '@istruzione/shared/registro';
 })
 export class RemoteEntryComponent {
   docenti:any
-  constructor(DocenteService:DocenteService){
+  panelOpenState = false;
+  constructor(private DocenteService:DocenteService){
     this.docenti=DocenteService.getDocenti()
-    console.log(DocenteService.getDocentiByClass("2A"))
   }
 }

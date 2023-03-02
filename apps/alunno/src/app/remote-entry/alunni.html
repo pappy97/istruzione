@@ -1,5 +1,13 @@
-<div *ngFor="let item of alunni">
-  <a [routerLink]="[ { outlets: {classe:['alunno',item.classe] } } ]" (click)="goToAlunno(item.id)">alunno: {{item.nome}}  {{item.cognome}}</a>
-</div>
-<div>
-  Selected:<a [routerLink]="[ { outlets: {alunno:['alunno',selected?.id] } } ]"> {{selected?.nome}} {{selected?.cognome}}</a></div>
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false" hideToggle *ngFor="let item of alunni"  (click)="goToClasse(item.classe)">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+
+      alunno: {{item.nome}} {{item.cognome}}
+
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p (click)="goToAlunno(item.id)">Informazioni su {{item.nome}} {{item.cognome}}</p>
+</mat-expansion-panel>
+</mat-accordion>

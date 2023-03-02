@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@istruzione/shared/design": ["libs/shared/design/src/index.ts"],
       "@istruzione/shared/registro": ["libs/shared/registro/src/index.ts"]
     }
   },

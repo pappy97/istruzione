@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { AlunniService } from "@istruzione/shared/registro";
-
+import { Router } from "@angular/router";
 @Component({
   selector: 'istruzione-alunno-entry',
   templateUrl: './alunni.html',
@@ -9,13 +9,15 @@ import { AlunniService } from "@istruzione/shared/registro";
 })
 export class RemoteEntryComponent {
   alunni:any
-  selected:any
-  a:any
-  constructor(alunniService:AlunniService){
+  panelOpenState = false;
+  constructor(private alunniService:AlunniService, private router:Router){
     this.alunni=alunniService.getAlunni();
-    this.a=alunniService
   }
-  goToAlunno(id:string,){
-    this.selected=this.a.getAlunnoById(id)
+
+  goToClasse(classe:string){
+    this.router.navigate([ { outlets: {classe:['alunno',classe] } } ])
+  }
+  goToAlunno(id:string){
+    this.router.navigate([ { outlets: {alunno:['alunno',id] } } ])
   }
 }

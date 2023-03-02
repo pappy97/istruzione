@@ -16,10 +16,18 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
 
-# Cronologia comandi:
+# Cronologia comandi inizio:
 creazione workspace monorepo :npx create-nx-workspace istruzione
 cambio cartella cs code: cd istruzione -> code.
 Installazione libreria per angular : npminstall --save-dev @nrwl/angular
 creazione host istituto: npx nx g @nrwl/angular:host istituto
 creazione remote alunno: npx nx g @nrwl/angular:remote alunno --host:istituto
 creazione remote docente: npx nx g @nrwl/angular:remote docente --host:istituto
+
+# Aggiungere Angular Material
+ da terminale eseguire il comando: npm install @angular/material
+ inserire nel file style.(css/scss/sass) del progetto(in questo caso alunno/docente/classe/istituto) @import '@angular/material/prebuilt-themes/indigo-pink.css';
+ nel file app.module.ts del progetto importare: import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+ dopo inserire negli import di @NgModule BrowserAnimationsModule
+ e infine nel module.ts dove si vuole inserire il material importare il material.
+
