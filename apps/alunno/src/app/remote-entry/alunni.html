@@ -1,0 +1,5 @@
+<div *ngFor="let item of alunni">
+  <a [routerLink]="[ { outlets: {classe:['alunno',item.classe] } } ]" (click)="goToAlunno(item.id)">alunno: {{item.nome}}  {{item.cognome}}</a>
+</div>
+<div>
+  Selected:<a routerLink=""> {{selected?.nome}} {{selected?.cognome}}</a></div>
