@@ -1,0 +1,59 @@
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Classe</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Seleziona una classe</mat-label>
+        <mat-select [(value)]="selected" (closed)="getCorsi()"formControlName="firstCtrl" required>
+          <mat-option *ngFor="let item of utente.classe" value="{{ item }}">{{
+            item
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button (click)="goBack()">Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+      </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+    <ng-template matStepLabel>Corso</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleziona il corso</mat-label>
+      <mat-select [(value)]="corso" formControlName="secondCtrl" required>
+        <mat-option *ngFor="let item of corsi" value="{{ item.id }}">{{
+          item.titolo
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Indietro</button>
+      <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+    <ng-template matStepLabel>Descrizione</ng-template>
+    <mat-form-field>
+      <mat-label>Descrizione</mat-label>
+      <textarea matInput  [(ngModel)]="descrizione" formControlName="thirdCtrl" required></textarea>
+    </mat-form-field>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="saveLezione()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+

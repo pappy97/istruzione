@@ -1,0 +1,136 @@
+{
+  "hosting": [
+    {
+      "target":"istituto",
+      "public": "dist/apps/istituto",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    },
+    {
+      "target":"alunno",
+      "public": "dist/apps/alunno",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    },
+    {
+      "target":"docente",
+      "public": "dist/apps/docente",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    },
+    {
+      "target":"pagelle",
+      "public": "dist/apps/pagelle",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    },
+    {
+      "target":"registro",
+      "public": "dist/apps/registro",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    },
+    {
+      "target":"corsi",
+      "public": "dist/apps/corsi",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [ {
+        "source": "*",
+        "headers": [ {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        } ]
+      } ]
+    }
+  ]
+}

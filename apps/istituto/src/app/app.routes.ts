@@ -1,28 +1,80 @@
 import { Route } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { loadRemoteModule } from '@nrwl/angular/mf';
+import { AppComponent } from './app.component';
+import { CompitiComponent } from './compiti/compiti.component';
+import { DocentiComponent } from './docenti/docenti.component';
+import { ClassComponent } from './class/class.component';
+import { OrarioComponent } from './orario/orario.component';
+import { AlunniComponent } from './alunni/alunni.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    outlet: 'docente',
-    loadChildren: () =>
-      import('docente/Module').then((m) => m.RemoteEntryModule),
+    component: AppComponent,
   },
   {
-    path: '',
-    outlet: 'alunno',
-    loadChildren: () =>
-      import('alunno/Module').then((m) => m.RemoteEntryModule),
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: 'alunno/:classe',
-    outlet:'classe',
-    loadChildren: () =>
-      import('classe/Module').then((m) => m.RemoteEntryModule),
-  },
-  {
-    path: 'alunno/:id',
-    outlet: 'alunno',
-    loadChildren: () =>
-      import('alunno/Module').then((m) => m.RemoteEntryModule),
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      {
+        path: 'docente',
+        loadChildren: () =>
+          loadRemoteModule('docente', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
+      },
+      {
+        path: 'alunno',
+        loadChildren: () =>
+          loadRemoteModule('alunno', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
+      },
+      {
+        path: 'registro',
+        loadChildren: () =>
+          loadRemoteModule('registro', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
+      },
+      {
+        path: 'corsi',
+        loadChildren: () =>
+          loadRemoteModule('corsi', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
+      },
+      {
+        path: 'pagelle',
+        loadChildren: () =>
+          loadRemoteModule('pagelle', './Module').then((m) => m.RemoteEntryModule),
+      },
+      {
+        path: 'compiti',
+        component: CompitiComponent,
+      },
+      {
+        path: 'docenti',
+        component: DocentiComponent,
+      },
+      {
+        path: 'alunni',
+        component: AlunniComponent,
+      },
+      {
+        path: 'classi',
+        component: ClassComponent,
+      },
+      {
+        path: 'orario',
+        component: OrarioComponent,
+      },
+    ],
   },
 ];

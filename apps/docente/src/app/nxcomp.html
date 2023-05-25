@@ -1,0 +1,8 @@
+<div><a [routerLink]="['', { outlets: {docente:null} } ]" >Indietro</a></div>
+<p>
+  Docente:{{docente.nome}} {{docente.cognome}}
+  classi:
+</p>
+<p *ngFor="let item of docente.classi" (click)="goToClasse(item)">
+   {{item}}
+</p>

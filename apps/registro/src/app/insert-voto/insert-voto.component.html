@@ -1,0 +1,106 @@
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+
+      <ng-template matStepLabel>Seleziona il tipo di verifica</ng-template>
+      <mat-form-field>
+        <mat-label>Tipo valutazione</mat-label>
+        <mat-select [(value)]="type" formControlName="firstCtrl" required>
+          <mat-option value=1>Valutazione Scritta</mat-option>
+          <mat-option value=2>Valutazione Orale</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button (click)="goBack()">Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Classe</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Seleziona una classe</mat-label>
+        <mat-select [(value)]="selected" (closed)="getAlunni();getCorsi()"formControlName="secondCtrl" required>
+          <mat-option *ngFor="let item of utente.classe" value="{{ item }}">{{
+            item
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+      </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+    <ng-template matStepLabel>Corso</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleziona il corso</mat-label>
+      <mat-select [(value)]="corso" formControlName="thirdCtrl" required>
+        <mat-option *ngFor="let item of corsi" value="{{ item.id }}">{{
+          item.titolo
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Indietro</button>
+      <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+    <ng-template matStepLabel>Data</ng-template>
+    <mat-form-field class="example-full-width">
+      <mat-label>Seleziona una data</mat-label>
+      <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [max]="maxDate" formControlName="fourthCtrl" required [(ngModel)]="data" >
+      <mat-hint>YYYY-MM-DD</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperPrevious>Indietro</button>
+      <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Voti</ng-template>
+    <mat-card class="example-card">
+
+      <div class="content">
+        <div  class="elenco">
+          <div>ALUNNO</div>
+          <div>
+            VOTO
+          </div>
+        </div>
+        <div *ngFor="let al of alunni;let i = index " class="elenco">
+          <div>{{ al.nome }} {{ al.cognome }}</div>
+          <div>
+            <mat-form-field class="example-form-field">
+              <input matInput type="number" min="0" max="10" [(ngModel)]="voti[i]"/>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+      </mat-card>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="saveVoti()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+

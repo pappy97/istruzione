@@ -1,0 +1,49 @@
+<div *ngIf="type===1">
+  <mat-accordion>
+    <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+    *ngFor="let item of lezioni"
+    >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Lezione {{ getCorso(item.corso) }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ item.data }}
+      </mat-panel-description>
+      <mat-panel-description>
+        {{ getDocente(item.docente) }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+      {{ item.descrizione }}
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
+<div *ngIf="type===2">
+  <button mat-icon-button color="primary" (click)="goToinsert()">
+    <mat-icon>add</mat-icon>
+  </button>
+<mat-accordion>
+    <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+    *ngFor="let item of lezioni"
+    >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Lezione {{ getCorso(item.corso) }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ item.data }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+      {{ item.descrizione }}
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+</div>

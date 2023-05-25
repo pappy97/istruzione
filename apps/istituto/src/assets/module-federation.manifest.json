@@ -1,0 +1,7 @@
+{
+  "alunno": "https://tesi-mfe-alunno.firebaseapp.com",
+  "docente": "https://tesi-mfe-docente.firebaseapp.com",
+  "pagelle": "https://tesi-mfe-pagelle.firebaseapp.com",
+  "registro": "https://tesi-mfe-registro.firebaseapp.com",
+  "corsi": "https://tesi-mfe-corsi.firebaseapp.com"
+}

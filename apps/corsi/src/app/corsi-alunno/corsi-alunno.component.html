@@ -1,0 +1,44 @@
+<div class="content">
+  <h1>Corsi</h1>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false" *ngFor="let corso of getCorsi()">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          [{{corso.id}}]  {{corso.titolo}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{getProf(corso.docenti)}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tab-group>
+        <mat-tab label="Lezioni">
+          <mat-expansion-panel hideToggle *ngFor="let lezione of getLezioni(corso.id)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{getprof(lezione.docente)}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{lezione.data}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            {{lezione.descrizione}}
+          </mat-expansion-panel>
+        </mat-tab>
+        <mat-tab label="Voti">
+          <mat-expansion-panel hideToggle *ngFor="let voto of getVoti(corso.id); let i = index">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{getprof(voto.professore)}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{voto.data}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+              Verifica {{voto.type===1? "Scritta":"Orale"}} = {{getVoto(voto.voti,i)}}
+          </mat-expansion-panel>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

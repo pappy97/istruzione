@@ -4,10 +4,16 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DataService } from "@istruzione/shared/registro"
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(DataService),
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       [
         {
@@ -20,7 +26,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       ],
       { initialNavigation: 'enabledBlocking' }
     ),
-    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

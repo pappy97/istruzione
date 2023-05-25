@@ -1,0 +1,21 @@
+<div>
+  <button mat-icon-button color="primary" (click)="goToinsert()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false" *ngFor="let item of verifica">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Verifica {{item.type===2 ? "orale": "scritta"}}  {{getCorso(item.corso)}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{item.data}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let el of item.voti">
+        {{getNomeAlunno(el.alunno)}} {{el.voto}}
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -1,0 +1,46 @@
+<div class="body">
+  <div class="toolbar">
+    <mat-toolbar>
+      <span>My App</span>
+      <span class="example-spacer"></span>
+      <span>
+        <button (click)="goTo(0)">
+
+          <mat-icon>person</mat-icon>
+        </button>
+      </span>
+      <span> <mat-list-item (click)="logOut()">LogOut</mat-list-item></span>
+    </mat-toolbar>
+  </div>
+  <div class="views">
+    <div class="contentr">
+      <mat-drawer-container class="content">
+        <mat-drawer mode="side" opened class="sidebar">
+          <mat-list *ngIf="type!==0">
+            <mat-list-item (click)="goTo(1)" [ngClass]="{'activated':selected===1}">Registro</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(2)" [ngClass]="{'activated':selected===2}" *ngIf="type===1">Compiti Assegnati</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}" *ngIf="type===1">Docenti</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}">Pagelle</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}">Corsi</mat-list-item>
+          </mat-list>
+          <mat-list *ngIf="type===0">
+            <mat-list-item (click)="goTo(6)" [ngClass]="{'activated':selected===6}">Alunni</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}">Corsi</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}">Docenti</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}">Pagelle</mat-list-item>
+          </mat-list>
+        </mat-drawer>
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </div>
+  </div>
+</div>

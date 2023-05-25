@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "tesi-mfe-istruzione"
+  },
+  "targets":{
+    "tesi-mfe-istruzione": {
+      "hosting": {
+        "istituto": ["tesi-mfe-istruzione"],
+        "alunno": ["tesi-mfe-alunno"],
+        "docente":["tesi-mfe-docente"],
+        "pagelle":["tesi-mfe-pagelle"],
+        "registro":["tesi-mfe-registro"],
+        "corsi":["tesi-mfe-corsi"]
+      }
+    }
+  }
+}

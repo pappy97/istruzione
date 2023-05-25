@@ -1,0 +1,47 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<h1>Registro</h1>
+<div *ngIf="utente.type===2">
+  <mat-form-field appearance="fill" >
+    <mat-label>Seleziona una classe</mat-label>
+    <mat-select [(value)]="selected"(closed)="getAlunni();getVerifica()">
+      <mat-option *ngFor=" let item of utente.classe" value="{{item}}">{{item}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selected!==''">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Alunni">
+        <p *ngFor="let item of alunni">{{item.nome}} {{item.cognome}}</p>
+      </mat-tab>
+      <mat-tab label="Verifica Scritta">
+        <istruzione-verifica [verifica]="getScritte()" [alunni]="alunni" ></istruzione-verifica>
+        Elenco verifiche scritte; inserimento nuovo Voto; controllo verifiche
+      </mat-tab>
+      <mat-tab label="Verifica Orale">
+        <istruzione-verifica [verifica]="getOrali()" [alunni]="alunni"></istruzione-verifica>
+        Elenco alunni con data verifica orale e voto + inserimento nuovovoto</mat-tab>
+      <mat-tab label="Lezioni">
+        <istruzione-lezioni [type]="2" [lezioni]="getLezioniProf()"></istruzione-lezioni>
+
+      </mat-tab>
+      <mat-tab label="Compiti">
+        <istruzione-compiti [classe]="selected"></istruzione-compiti>
+
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+<div *ngIf="utente.type===1">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Verifiche Scritte">
+      <istruzione-verifica-studente [verifica]="getScritteS()"></istruzione-verifica-studente>
+      Elenco verifiche Scritte e Voto;
+    </mat-tab>
+    <mat-tab label="Verifiche Orali">
+      <istruzione-verifica-studente [verifica]="getOraliS()"></istruzione-verifica-studente>
+      Elenco  verifiche orali e voto</mat-tab>
+    <mat-tab label="Lezioni Giornaliere">
+      <istruzione-lezioni [lezioni]="getLezioni()"[type]=1></istruzione-lezioni>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

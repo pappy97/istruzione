@@ -1,0 +1,35 @@
+<mat-stepper linear #stepper>
+  <mat-step>
+    <form >
+      <ng-template matStepLabel>Ricerca</ng-template>
+        <mat-label>Informazioni Personali</mat-label>
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Alunno</mat-label>
+            <input matInput
+                 aria-label="State"
+                 [matAutocomplete]="auto"
+                 [formControl]="stateCtrl"
+                 >
+              <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let alunno of filteredAlunni | async" [value]="alunno.id" >
+                  <span>{{alunno.nome}}  {{alunno.cognome}}</span> |
+                  <small>Id: {{alunno.id}}</small>
+                </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+        </p>
+      <div>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="removeAlunno()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>

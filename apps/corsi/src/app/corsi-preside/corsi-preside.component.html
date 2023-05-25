@@ -1,0 +1,51 @@
+<h1>Gestione Corsi</h1>
+<mat-accordion>
+  <mat-expansion-panel (closed)="showadd=true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Aggiungi Corso
+      </mat-panel-title>
+      <mat-panel-description>
+        Aggiungi un nuovo corso
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="adding">
+    <button mat-raised-button color="primary" *ngIf="showadd" (click)="showadd=false">Aggiungi</button>
+    <div *ngIf="showadd===false">
+      <istruzione-insert-corso></istruzione-insert-corso>
+    </div>
+  </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel (closed)="showupdate=true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Modifica Corso
+      </mat-panel-title>
+      <mat-panel-description>
+        Modifica un corso
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="modify">
+      <button mat-raised-button color="primary" *ngIf="showupdate" (click)="showupdate=false;">Modifica</button>
+      <div *ngIf="showupdate===false">
+        <istruzione-update-corso></istruzione-update-corso>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel (closed)="showremove=true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Rimuovi Corso
+      </mat-panel-title>
+      <mat-panel-description>
+        Rimozione di un Corso
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="remove">
+      <button mat-raised-button color="primary" *ngIf="showremove" (click)="showremove=false">Rimuovi</button>
+      <div *ngIf="showremove===false">
+        <istruzione-remove-corso></istruzione-remove-corso>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

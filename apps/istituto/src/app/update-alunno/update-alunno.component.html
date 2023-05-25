@@ -1,0 +1,112 @@
+<mat-stepper linear #stepper>
+  <mat-step>
+    <form >
+      <ng-template matStepLabel>Ricerca</ng-template>
+        <mat-label>Informazioni Personali</mat-label>
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Alunno</mat-label>
+            <input matInput
+                 aria-label="State"
+                 [matAutocomplete]="auto"
+                 [formControl]="stateCtrl"
+                 >
+              <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let alunno of filteredAlunni | async" [value]="alunno.id" >
+                  <span>{{alunno.nome}}  {{alunno.cognome}}</span> |
+                  <small>Id: {{alunno.id}}</small>
+                </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+        </p>
+      <div>
+        <button mat-button matStepperNext (click)="tryvalue()">Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step >
+      <ng-template matStepLabel>Modifica</ng-template>
+      <p>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Nome
+              </mat-panel-title>
+              <mat-panel-description>
+                Modifica Nome
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput  [(ngModel)]="toUpdate.nome">
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cognome
+              </mat-panel-title>
+              <mat-panel-description>
+                Modifica Cognome
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Cognome</mat-label>
+                <input matInput  [(ngModel)]="toUpdate.cognome">
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Email
+              </mat-panel-title>
+              <mat-panel-description>
+                Modifica email
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput   [(ngModel)]="toUpdate.email">
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Classe
+              </mat-panel-title>
+              <mat-panel-description>
+                Modifica Classe
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Classe</mat-label>
+                <input matInput   [(ngModel)]="toUpdate.classe">
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+      </p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="updateAlunno()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>

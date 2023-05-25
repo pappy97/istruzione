@@ -1,0 +1,67 @@
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Classi</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Seleziona una classe</mat-label>
+        <mat-select [(value)]="selected" formControlName="firstCtrl" required>
+          <mat-option *ngFor="let item of _Classi" value="{{ item }}">{{
+            item
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button (click)="goBack()">Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+      </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+    <ng-template matStepLabel>Corso</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Titolo del corso</mat-label>
+        <input matInput [(ngModel)]="titolo" formControlName="secondCtrl" required>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Indietro</button>
+      <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+    <ng-template matStepLabel>Docenti</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleziona un professore</mat-label>
+      <mat-select [(value)]="prof" formControlName="thirdCtrl">
+        <mat-option *ngFor="let item of getDocenti()" value="{{ item.id }}">{{
+          item.cognome
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <p>
+      Titolo:{{titolo}}
+    </p>
+    <p>
+      Docenti:{{getDocentiTosave()}}
+    </p>
+    <p>
+      Classe:{{selected}}
+    </p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="saveCorso()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>

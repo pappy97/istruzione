@@ -1,0 +1,104 @@
+<mat-stepper linear #stepper>
+  <mat-step>
+    <form >
+      <ng-template matStepLabel>Ricerca</ng-template>
+        <mat-label>Corso</mat-label>
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Corso</mat-label>
+            <input matInput
+                 aria-label="State"
+                 [matAutocomplete]="auto"
+                 [formControl]="stateCtrl"
+                 >
+              <mat-autocomplete #auto="matAutocomplete" >
+                <mat-option *ngFor="let corso of filteredCorsi | async" [value]="corso.id" >
+                  <span>{{corso.titolo}} </span> |
+                  <small>Id: {{corso.id}}</small>
+                </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+        </p>
+      <div>
+        <button mat-button matStepperNext (click)="tryvalue()">Avanti</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step >
+      <ng-template matStepLabel>Modifica</ng-template>
+      <p>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Titolo
+              </mat-panel-title>
+              <mat-panel-description>
+                Modifica Titolo
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Titolo</mat-label>
+                <input matInput  [(ngModel)]="toUpdate.titolo">
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aggiungi Professore
+              </mat-panel-title>
+              <mat-panel-description>
+                Aggiungi un professore
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field>
+              <mat-select [(value)]="addprofessore">
+                  <mat-option *ngFor="let prof of getnotProf()" [value]="prof.id">
+                    {{prof.nome}} {{prof.cognome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="toUpdate.docenti.length>1">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Rimuovi un professore
+              </mat-panel-title>
+              <mat-panel-description>
+               rimuovi un professore
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              <mat-form-field>
+
+                <mat-select [(value)]="remprof">
+                  <mat-option *ngFor="let prof of getProf()" [value]="prof.id">
+                    {{prof.nome}} {{prof.cognome}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+      </p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="updateCorso()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>

@@ -1,0 +1,115 @@
+{
+  "name": "registro",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/registro/src",
+  "prefix": "istruzione",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/registro",
+        "index": "apps/registro/src/index.html",
+        "main": "apps/registro/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/registro/tsconfig.app.json",
+        "assets": ["apps/registro/src/favicon.ico", "apps/registro/src/assets"],
+        "styles": ["apps/registro/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/registro/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2mb",
+              "maximumError": "4mb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/registro/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "registro:build:production"
+        },
+        "development": {
+          "browserTarget": "registro:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4205,
+        "publicHost": "http://localhost:4205"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "registro:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/registro/**/*.ts", "apps/registro/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/registro/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "registro:build",
+        "port": 4205
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "registro:build:development"
+        },
+        "production": {
+          "buildTarget": "registro:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

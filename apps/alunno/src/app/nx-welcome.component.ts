@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlunniService } from '@istruzione/shared/registro';
 
 /* eslint-disable */
 
@@ -10,10 +9,5 @@ import { AlunniService } from '@istruzione/shared/registro';
   encapsulation: ViewEncapsulation.None,
 })
 export class NxWelcomeComponent {
-  alunno:any
-  constructor(private router:ActivatedRoute,alunniService:AlunniService){
-    router.params.subscribe(p=>{
-      this.alunno=alunniService.getAlunnoById(p['id'])
-    })
-  }
+
 }

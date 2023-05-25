@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatCardModule} from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { SchedaComponent } from './scheda/scheda.component';
 @NgModule({
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [
     MatAutocompleteModule,
@@ -24,9 +26,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatButtonToggleModule,
     MatCardModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    SchedaComponent,
   ],
+  declarations: [SchedaComponent],
 })
-export class SharedDesignModule {
-
-}
+export class SharedDesignModule {}

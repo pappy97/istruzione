@@ -1,13 +1,20 @@
-<mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-  (closed)="panelOpenState = false" hideToggle *ngFor="let item of alunni"  (click)="goToClasse(item.classe)">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
+<div class="alunno" *ngIf="utente.type===1">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Salve {{utente.nome}} {{utente.cognome}}</mat-card-title>
+      <mat-card-subtitle>{{utente.email}}</mat-card-subtitle>
+    </mat-card-header>
+    <span></span>
+    <mat-card style="padding-top: 65px; padding-left: 15px;align-items: center;">
+      <mat-card-subtitle>Informazioni Personali</mat-card-subtitle>
+      <mat-card-content><p> Nome:  </p><p>{{utente.nome}}</p></mat-card-content>
+      <mat-card-content><p>Cognome:  </p><p>{{utente.cognome}}</p></mat-card-content>
+      <mat-card-content><p>email:  </p><p>{{utente.email}}</p></mat-card-content>
 
-      alunno: {{item.nome}} {{item.cognome}}
+    </mat-card>
+  </mat-card>
+</div>
+<div *ngIf="utente.type===0">
+<h1>Gestione Alunni</h1>
 
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <p (click)="goToAlunno(item.id)">Informazioni su {{item.nome}} {{item.cognome}}</p>
-</mat-expansion-panel>
-</mat-accordion>
+</div>

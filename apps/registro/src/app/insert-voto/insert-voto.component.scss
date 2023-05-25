@@ -1,0 +1,18 @@
+.content{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  .elenco{
+    display: flex;
+
+    height: 100px;
+    width: 50%;
+    align-items: center;
+    justify-content: space-between;
+    .example-form-field{
+      width: 50px;
+    }
+  }
+}

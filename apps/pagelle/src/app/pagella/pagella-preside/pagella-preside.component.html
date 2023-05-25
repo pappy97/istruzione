@@ -1,0 +1,23 @@
+<h1>PAGELLA</h1>
+<mat-tab-group>
+  <mat-tab label="Pagelle da Approvare">
+    <mat-card *ngFor="let pagella of getPagelleToConfirm()">
+      <mat-card-header>
+        <mat-card-title>{{getCorso(pagella.corso)}}</mat-card-title>
+        <mat-card-subtitle>{{getAlunno(pagella.alunno)}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions align="end">
+        <button mat-button (click)="Approva(pagella.id)">Approva</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab label="Pagelle Approvate">
+    <mat-card *ngFor="let pagella of getPagelleConfirmed()">
+      <mat-card-header>
+        <mat-card-title>{{getCorso(pagella.corso)}}</mat-card-title>
+        <mat-card-subtitle>{{getAlunno(pagella.alunno)}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+ </mat-tab>
+</mat-tab-group>

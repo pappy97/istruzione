@@ -1,19 +1,113 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
+import { FormsModule } from '@angular/forms';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AuthService } from './auth.service';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DataService } from '@istruzione/shared/registro';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { CompitiComponent } from './compiti/compiti.component';
+import { DocentiComponent } from './docenti/docenti.component';
+import { ClassComponent } from './class/class.component';
+import { OrarioComponent } from './orario/orario.component';
+import { AlunniComponent } from './alunni/alunni.component';
+import { InsertAlunnoComponent } from './insert-alunno/insert-alunno.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { UpdateAlunnoComponent } from './update-alunno/update-alunno.component';
+import { RemoveAlunnoComponent } from './remove-alunno/remove-alunno.component';
+import { InsertdocenteComponent } from './docenti/insertdocente/insertdocente.component';
+import { UpdatedocenteComponent } from './docenti/updatedocente/updatedocente.component';
+import { RemovedocenteComponent } from './docenti/removedocente/removedocente.component';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    CompitiComponent,
+    DocentiComponent,
+    ClassComponent,
+    OrarioComponent,
+    AlunniComponent,
+    InsertAlunnoComponent,
+    UpdateAlunnoComponent,
+    RemoveAlunnoComponent,
+    InsertdocenteComponent,
+    UpdatedocenteComponent,
+    RemovedocenteComponent,
+  ],
   imports: [
-    BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(DataService, {
+      dataEncapsulation: false,
+    }),
+
+    MatInputModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatListModule,
+    BrowserModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
+
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

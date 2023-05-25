@@ -1,0 +1,64 @@
+<h1>PAGELLA</h1>
+<mat-tab-group>
+  <mat-tab label="Pagella Provvisorie">
+    <div *ngIf="getPagelleNotConfirmed().length>0; else NotConfirmed">
+      <section class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="getPagelleNotConfirmed()">
+        <ng-container matColumnDef="corso">
+          <th mat-header-cell *matHeaderCellDef> Corso </th>
+          <td mat-cell *matCellDef="let pagella"[ngClass]="{'activated':pagella.voto<6}"> {{getCorso(pagella.corso)}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <ng-container matColumnDef="voto">
+          <th mat-header-cell *matHeaderCellDef> Voto </th>
+          <td mat-cell *matCellDef="let pagella"[ngClass]="{'activated':pagella.voto<6}"> {{pagella.voto}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <ng-container matColumnDef="docente">
+          <th mat-header-cell *matHeaderCellDef> Docenti </th>
+          <td mat-cell *matCellDef="let pagella"[ngClass]="{'activated':pagella.voto<6}"> {{getDocenti(pagella.corso)}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+      </section>
+    </div>
+<ng-template #NotConfirmed>
+  <h3>PAGELLE PUBBLICATE</h3>
+</ng-template>
+  </mat-tab>
+  <mat-tab label="Pagella Definitiva">
+    <div *ngIf="getPagelleConfirmed().length>0; else Confirmed">
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table mat-table [dataSource]="getPagelleConfirmed()">
+
+        <ng-container matColumnDef="corso">
+          <th mat-header-cell *matHeaderCellDef> Corso </th>
+          <td mat-cell *matCellDef="let pagella"> {{getCorso(pagella.corso)}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+
+        </ng-container>
+        <!-- Cost Column -->
+        <ng-container matColumnDef="voto">
+          <th mat-header-cell *matHeaderCellDef> Voto </th>
+          <td mat-cell *matCellDef="let pagella"> {{pagella.voto}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <ng-container matColumnDef="docente">
+          <th mat-header-cell *matHeaderCellDef> Docenti </th>
+          <td mat-cell *matCellDef="let pagella"> {{getDocenti(pagella.corso)}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+      </table>
+    </section>
+    </div>
+<ng-template #Confirmed>
+<h3>PAGELLE NON PUBBLICATE</h3>
+</ng-template>
+ </mat-tab>
+</mat-tab-group>

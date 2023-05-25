@@ -1,0 +1,98 @@
+<div class="content" *ngIf="utente.type===1">
+  <h1>Docenti</h1>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false" *ngFor="let docente of docenti">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{docente.nome}} {{docente.cognome}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{getCorsi(docente.id)}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tab-group>
+        <mat-tab label="Lezioni">
+          <mat-expansion-panel hideToggle *ngFor="let lezione of getLezioni(docente.id)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{getCorso(lezione.corso)}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{lezione.data}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            {{lezione.descrizione}}
+          </mat-expansion-panel>
+        </mat-tab>
+        <mat-tab label="Voti">
+          <mat-expansion-panel hideToggle *ngFor="let voto of getVoti(docente.id); let i = index">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{getCorso(voto.corso)}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{voto.data}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+              Verifica {{voto.type===1? "Scritta":"Orale"}} = {{getVoto(voto.voti,i)}}
+          </mat-expansion-panel>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div *ngIf="utente.type===0">
+  <h1>Gestione Docenti</h1>
+  <mat-accordion>
+    <mat-expansion-panel (closed)="showadd=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Aggiungi Docente
+        </mat-panel-title>
+        <mat-panel-description>
+          Aggiungi un nuovo docente
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="adding">
+      <button mat-raised-button color="primary" *ngIf="showadd" (click)="showadd=false">Aggiungi</button>
+      <div *ngIf="showadd===false">
+        <istruzione-insertdocente></istruzione-insertdocente>
+      </div>
+    </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (closed)="showupdate=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Modifica Docente
+        </mat-panel-title>
+        <mat-panel-description>
+          Modifica il docente
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="modify">
+        <button mat-raised-button color="primary" *ngIf="showupdate" (click)="showupdate=false;">Modifica</button>
+        <div *ngIf="showupdate===false">
+          <istruzione-updatedocente></istruzione-updatedocente>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (closed)="showremove=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Rimuovi Docente
+        </mat-panel-title>
+        <mat-panel-description>
+          Rimozione di un docente
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="remove">
+        <button mat-raised-button color="primary" *ngIf="showremove" (click)="showremove=false">Rimuovi</button>
+        <div *ngIf="showremove===false">
+          <istruzione-removedocente></istruzione-removedocente>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
