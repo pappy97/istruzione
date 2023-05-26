@@ -21,6 +21,7 @@ export class UpdateCorsoComponent implements OnInit{
   remprof:any;
   toUpdate:corso={
     "classe":"",
+    "isConfirmed":false,
     "docenti":[],
     "id":"",
     "titolo":""

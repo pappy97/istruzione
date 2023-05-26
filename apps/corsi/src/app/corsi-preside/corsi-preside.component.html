@@ -48,4 +48,20 @@
       </div>
     </div>
   </mat-expansion-panel>
+  <mat-expansion-panel (closed)="showconfirm=true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Conferma Corso
+      </mat-panel-title>
+      <mat-panel-description>
+        Conferma un corso Proposto da un docente
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="confirm">
+      <button mat-raised-button color="primary" *ngIf="showconfirm" (click)="showconfirm=false">Conferma</button>
+      <div *ngIf="showconfirm===false">
+        <istruzione-confirm-corso></istruzione-confirm-corso>
+      </div>
+    </div>
+  </mat-expansion-panel>
 </mat-accordion>

@@ -51,13 +51,16 @@ export class InsertCorsoComponent implements OnInit{
     let docs=[];
     if(this.prof!="-1") docs.push(this.prof)
     this.tosave={
+    "isConfirmed":false,
     "classe":this.selected,
     "docenti":docs,
     "id":this.corso.getNewId(),
     "titolo":this.titolo
     }
     this.corso.addCorso(this.tosave)
-    console.log(this.tosave)
+    docs.forEach(d=>{
+      this.doc.addClassDocente(d,this.selected)
+    })
     this.router.navigate(['/'])
   }
 }

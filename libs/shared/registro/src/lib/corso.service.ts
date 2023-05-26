@@ -23,17 +23,29 @@ export class CorsoService {
   public getCorsoById(id:string){
     return this.Corsi.find(e=> e.id==id)
   }
-  public getCorsiByProfessore(prof:string){
-    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof))
+
+  public getCorsiNotConfirmedByProfessore(prof:string){
+    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& !e.isConfirmed)
   }
-  public getCorsiByClasse(classe:any){
-    return this.Corsi.filter(e=> e.classe===classe)
+  public getCorsiConfirmedByProfessore(prof:string){
+    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& e.isConfirmed)
+  }
+
+  public getCorsiConfirmedByClasse(classe:any){
+    return this.Corsi.filter(e=> e.classe===classe && e.isConfirmed)
+  }
+  public getCorsiNotConfirmedByClasse(classe:any){
+    return this.Corsi.filter(e=> e.classe===classe && !e.isConfirmed)
   }
   public addCorso(corso:corso){
     this.db.collection('corsi').doc().set(corso);
   }
-  public getAllCorsi(){
-    return this.Corsi;
+
+  public getAllCorsiConfirmed(){
+    return this.Corsi.filter(e=>e.isConfirmed);
+  }
+  public getAllCorsiNotConfirmed(){
+    return this.Corsi.filter(e=>e.isConfirmed==false);
   }
   public UpdateCorso(corso:corso){
     this.db.collection('corsi',ref=>ref.where('id', '==', corso.id)).get().subscribe(e=>{
@@ -42,6 +54,14 @@ export class CorsoService {
       })
     })
   }
+  public ConfirmCorso(corso:string){
+    this.db.collection('corsi',ref=>ref.where('id', '==', corso)).get().subscribe(e=>{
+      e.docs.forEach(doc=>{
+        this.db.collection('corsi').doc(doc.id).update({"isConfirmed":true})
+      })
+    })
+  }
+
   removeCorso(corso:corso){
     this.db.collection('corsi',ref=>ref.where('id', '==', corso.id)).get().subscribe(e=>{
       e.docs.forEach(doc=>{

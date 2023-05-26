@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlunniBackService, RetriveDBService, UsersService } from '@istruzione/shared/registro';
+import { AlunniBackService, DocenteService } from '@istruzione/shared/registro';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -18,21 +19,16 @@ export class HomeComponent implements OnInit{
   selected=0;
   showFiller= false;
   type: any;
-  constructor (private db:RetriveDBService,private users:UsersService, private alunni:AlunniBackService,public router:Router,private auth:AuthService){}
+  constructor (private alunni:AlunniBackService,private docente:DocenteService,private router:Router,private auth:AuthService){}
   ngOnInit(){
-    this.db.retrivedb()
-    this.users.getUsers().subscribe((data:any)=>{
-      localStorage.setItem("users",JSON.stringify(data))
-    })
-    let a=this.users.getType(JSON.parse(localStorage.getItem('user')!).email);
-    a.forEach(doc=>{
-      doc.forEach((c:any)=>{
-        localStorage.setItem("utente",JSON.stringify(c.data()))
-      this.type=c.data().type;
-      if(this.type==1) {this.router.navigate(['home/alunno/'])}
-      else this.router.navigate(['home/docente'])
-      })
-    })
+    if(this.alunni.getAlunnobyEmail(JSON.parse(localStorage.getItem('user')!).email)!==undefined) {
+      localStorage.setItem('utente',JSON.stringify(this.alunni.getAlunnobyEmail(JSON.parse(localStorage.getItem('user')!).email)))
+      this.router.navigate(['home/alunno/'])}
+      else
+      {
+        localStorage.setItem('utente',JSON.stringify(this.docente.getDocenteByEmail(JSON.parse(localStorage.getItem('user')!).email)))
+        this.router.navigate(['home/docente'])
+      }
 
   }
   goType(){

@@ -31,9 +31,21 @@ import { InsertCorsoComponent } from '../corsi-preside/insert-corso/insert-corso
 import { UpdateCorsoComponent } from '../corsi-preside/update-corso/update-corso.component';
 import { RemoveCorsoComponent } from '../corsi-preside/remove-corso/remove-corso.component';
 import { InsertcorsoComponent } from '../insertcorso/insertcorso.component';
+import { ConfirmCorsoComponent } from '../corsi-preside/confirm-corso/confirm-corso.component';
 
 @NgModule({
-  declarations: [RemoteEntryComponent, CorsiAlunnoComponent,CorsiDocentiComponent,InsertcorsoComponent,CorsiPresideComponent,InsertCorsoComponent,UpdateCorsoComponent,RemoveCorsoComponent],
+  declarations: [
+    RemoteEntryComponent,
+    CorsiAlunnoComponent,
+    CorsiDocentiComponent,
+    InsertcorsoComponent,
+    CorsiPresideComponent,
+    InsertCorsoComponent,
+    UpdateCorsoComponent,
+    RemoveCorsoComponent,
+    ConfirmCorsoComponent
+  ],
+
   imports: [
     CommonModule,
     RouterModule.forChild(remoteRoutes),

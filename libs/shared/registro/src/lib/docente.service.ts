@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
@@ -26,6 +28,9 @@ export class DocenteService {
   public getAllDocenti(){
     return this.Docenti;
   }
+  public getDocenteByEmail(email:string){
+    return this.Docenti.find(e=> e.email==email)
+  }
   public getDocenteById(id:string){
     return this.Docenti.find(e=> e.id==id)
   }
@@ -49,6 +54,16 @@ export class DocenteService {
     this.db.collection('users',ref=>ref.where('id', '==', user)).get().subscribe(e=>{
       e.docs.forEach(doc=>{
         this.db.collection('users').doc(doc.id).delete()
+      })
+    })
+  }
+  addClassDocente(usr:string,classe:string){
+    let classi:any;
+    classi=(this.getDocenteById(usr)?.classe)!
+    classi.push(classe)
+    this.db.collection('users',ref=>ref.where('id', '==', usr)).get().subscribe(e=>{
+      e.docs.forEach(doc=>{
+        this.db.collection('users').doc(doc.id).update({"classe":classi})
       })
     })
   }

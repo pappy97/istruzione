@@ -19,10 +19,10 @@ export class CorsiDocentiComponent implements OnInit {
     this.utente=JSON.parse(localStorage.getItem('utente')!)
   }
   goToInsert(){
-    this.router.navigateByUrl('/insertCorso')
+    this.router.navigate(['home/corsi/insertCorso'])
   }
   getCorsi(){
-    return this.cor.getCorsiByProfessore(this.utente.id)
+    return this.cor.getCorsiConfirmedByProfessore(this.utente.id)
   }
   getLezioni(id:any){
     return this.lez.getLezioniByCorso(id);

@@ -22,7 +22,7 @@ export class CorsiAlunnoComponent implements OnInit{
     this.utente=JSON.parse(localStorage.getItem('utente')!)
 }
 getCorsi(){
-  this.corsi=this.cor.getCorsiByClasse("2A");
+  this.corsi=this.cor.getCorsiConfirmedByClasse("2A");
   return this.corsi
 }
 getProf(docs:string[]){

@@ -14,6 +14,7 @@ export class CorsiPresideComponent implements OnInit{
   showadd=true;
   showremove=true;
   showupdate=true;
+  showconfirm=true
   ngOnInit(){
     this.utente=JSON.parse(localStorage.getItem('utente')!)
   }

@@ -23,7 +23,8 @@ export interface verifica{
 export interface corso{
 
     "id":string,
-    "classe":string
+    "classe":string,
+    "isConfirmed":boolean,
     "docenti":string[],
     "titolo":string
 }

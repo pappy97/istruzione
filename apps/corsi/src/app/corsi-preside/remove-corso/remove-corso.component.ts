@@ -18,6 +18,7 @@ export class RemoveCorsoComponent implements OnInit{
   corso!: corso;
   toUpdate:corso={
     "classe":"",
+    "isConfirmed":false,
     "docenti":[],
     "id":"",
     "titolo":""

@@ -9,15 +9,15 @@
 <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"
     (closed)="panelOpenState = false" *ngFor="let corso of getCorsi()">
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header [ngClass]="{'notConfirmed':!corso.isConfirmed}">
       <mat-panel-title>
-        [{{corso.id}}]  {{corso.titolo}}
+        <span *ngIf="corso.isConfirmed">[{{corso.id}}]</span>  {{corso.titolo}}
       </mat-panel-title>
       <mat-panel-description>
         {{corso.classe}}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-tab-group>
+    <mat-tab-group *ngIf="corso.isConfirmed">
       <mat-tab label="Lezioni">
         <mat-expansion-panel hideToggle *ngFor="let lezione of getLezioni(corso.id)">
           <mat-expansion-panel-header>
