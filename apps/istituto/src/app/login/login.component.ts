@@ -4,7 +4,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { Component,EventEmitter,OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
-import { AuthService } from '../auth.service';
+import { AuthService } from '@istruzione/shared/registro';
 @Component({
   selector: 'istruzione-login',
   templateUrl: './login.component.html',

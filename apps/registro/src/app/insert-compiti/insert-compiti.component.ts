@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LezioniService, CorsoService, CompitiService } from '@istruzione/shared/registro';
-import { compito } from 'libs/shared/registro/src/lib/interfaces';
+import { compito } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-insert-compiti',
@@ -39,7 +39,7 @@ export class InsertCompitiComponent implements OnInit{
     this.lezioni.getLezioni()
   }
   getCorsi(){
-    this.corsi=this.corsiService.getCorsiByProfessore(this.utente.id);
+    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
   }
   getClassi(){
     return this.utente.classe

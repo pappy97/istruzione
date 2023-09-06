@@ -9,4 +9,7 @@ export * from './lib/retrive-db.service'
 export * from './lib/lezioni.service'
 export * from './lib/compiti.service'
 export * from './lib/pagelle.service'
+export * from './lib/auth.service'
+export * from './lib/user'
+export * from './lib/interfaces'
 

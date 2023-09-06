@@ -1,7 +1,18 @@
 .login{
+  background-color: #C5DFF8;
   display: flex;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
+}
+.example-card{
+  background-color: #ffffff;
+}
+mat-form-field{
+  color: #4A55A2;
+  matInput{
+  background-color: #4A55A2;
+
+  }
 }

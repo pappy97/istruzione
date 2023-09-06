@@ -3,7 +3,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CorsoService, DocenteService } from '@istruzione/shared/registro';
-import { lezione, user } from 'libs/shared/registro/src/lib/interfaces';
+import { lezione, user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-lezioni',

@@ -97,6 +97,9 @@
   <mat-step>
     <ng-template matStepLabel>Conferma</ng-template>
     <p>Confermi?</p>
+    <p *ngFor="let verifica of getalunniverifica()">
+      {{verifica.alunno}} Voto: {{verifica.voto}}
+    </p>
     <div>
         <button mat-button matStepperPrevious>Indietro</button>
         <button mat-button (click)="saveVoti()">Confermo</button>

@@ -6,4 +6,5 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('./remote-entry/entry.module').then((m) => m.RemoteEntryModule),
   },
+
 ];

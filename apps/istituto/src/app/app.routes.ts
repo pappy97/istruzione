@@ -4,10 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { loadRemoteModule } from '@nrwl/angular/mf';
 import { AppComponent } from './app.component';
 import { CompitiComponent } from './compiti/compiti.component';
-import { DocentiComponent } from './docenti/docenti.component';
 import { ClassComponent } from './class/class.component';
 import { OrarioComponent } from './orario/orario.component';
-import { AlunniComponent } from './alunni/alunni.component';
 
 export const appRoutes: Route[] = [
   {
@@ -29,6 +27,7 @@ export const appRoutes: Route[] = [
             (m) => m.RemoteEntryModule
           ),
       },
+
       {
         path: 'alunno',
         loadChildren: () =>
@@ -59,14 +58,7 @@ export const appRoutes: Route[] = [
         path: 'compiti',
         component: CompitiComponent,
       },
-      {
-        path: 'docenti',
-        component: DocentiComponent,
-      },
-      {
-        path: 'alunni',
-        component: AlunniComponent,
-      },
+
       {
         path: 'classi',
         component: ClassComponent,

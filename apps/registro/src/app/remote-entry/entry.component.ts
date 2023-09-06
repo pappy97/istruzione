@@ -4,9 +4,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component,OnInit } from '@angular/core';
-import { AlunniBackService, CompitiService, DocenteService, LezioniService, RegistroService } from '@istruzione/shared/registro';
+import { AlunniBackService, CompitiService, DocenteService, LezioniService, RegistroService, RetriveDBService } from '@istruzione/shared/registro';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { verifica } from 'libs/shared/registro/src/lib/interfaces';
+import { verifica } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-registro-entry',
@@ -25,7 +25,7 @@ export class RemoteEntryComponent implements OnInit {
   alunni:any;
   selected='';
   reg:verifica[]=[];
-  constructor(private alunniback:AlunniBackService,private comp:CompitiService,private registro:RegistroService,private lezioniService:LezioniService,private docenti:DocenteService){
+  constructor(private db:RetriveDBService,private alunniback:AlunniBackService,private comp:CompitiService,private registro:RegistroService,private lezioniService:LezioniService,private docenti:DocenteService){
   }
   ngOnInit(){
     this.utente=JSON.parse(localStorage.getItem("utente")!)
@@ -56,6 +56,6 @@ export class RemoteEntryComponent implements OnInit {
     return this.lezioniService.getLezioniByClasseAndProf(this.selected,this.utente.id)
   }
   getCompiti(){
-    return this.comp.getCompitiByClasseAndProfessor(this.selected,this.utente.id)
+    console.log(this.comp.getCompitiByClasseAndProfessor(this.selected,this.utente.id))
   }
 }

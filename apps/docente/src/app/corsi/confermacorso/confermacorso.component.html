@@ -1,0 +1,33 @@
+<div *ngIf="corsi.length>0">
+  <mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Classi</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Corso</mat-label>
+          <mat-select [(value)]="selected" formControlName="firstCtrl" required>
+            <mat-option *ngFor="let item of corsi" value="{{ item.id }}">{{
+              item.titolo
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+        </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel >Conferma</ng-template>
+      <p>Confermi?</p>
+      <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button (click)="updateCorso()">Confermo</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  </div>
+  <div *ngIf="corsi.length===0">
+    <div>
+      <h3>Non ci sono corsi da confermare</h3>
+    </div>
+  </div>

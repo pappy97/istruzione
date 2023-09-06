@@ -23,10 +23,13 @@ export class CorsoService {
   public getCorsoById(id:string){
     return this.Corsi.find(e=> e.id==id)
   }
-
   public getCorsiNotConfirmedByProfessore(prof:string){
     return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& !e.isConfirmed)
   }
+  public getCorsiByProfessore(prof:string){
+    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof))
+  }
+
   public getCorsiConfirmedByProfessore(prof:string){
     return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& e.isConfirmed)
   }

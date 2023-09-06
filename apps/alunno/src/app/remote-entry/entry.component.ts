@@ -3,9 +3,8 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component,OnInit } from '@angular/core';
-import { AlunniBackService } from "@istruzione/shared/registro";
+import { AlunniBackService,user } from "@istruzione/shared/registro";
 import { Router } from "@angular/router";
-import { user } from 'libs/shared/registro/src/lib/interfaces';
 @Component({
   selector: 'istruzione-alunno-entry',
   templateUrl: './alunni.html',

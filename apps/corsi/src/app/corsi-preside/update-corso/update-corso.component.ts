@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -39,6 +40,7 @@ export class UpdateCorsoComponent implements OnInit{
     thirdCtrl: ['', Validators.required],
   });
   constructor(private _formBuilder:FormBuilder,private corsiService:CorsoService,private router:Router,private doc:DocenteService){
+    this.corsi=this.corsiService.getAllCorsiConfirmed();
     this.filteredCorsi = this.stateCtrl.valueChanges.pipe(
       startWith(''),
       map(corso => (corso ? this._filtercorsi(corso) : this.corsi.slice())),
@@ -59,7 +61,7 @@ export class UpdateCorsoComponent implements OnInit{
     return this.corsi.filter(al => al.titolo.toLowerCase().includes(filterValue)||al.id.includes(filterValue));
   }
   ngOnInit(){
-    this.corsi=this.corsiService.getAllCorsi()
+    this.corsiService.getCorsi()
   }
   updateCorso(){
     this.toUpdate.docenti=this.toUpdate.docenti.filter(e=>!e.includes(this.remprof))

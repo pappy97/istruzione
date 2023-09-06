@@ -3,7 +3,7 @@
 /* eslint-disable prefer-const */
 import { Component, OnInit } from '@angular/core';
 import { AlunniBackService, CorsoService, RegistroService } from '@istruzione/shared/registro';
-import { user, verifica, voto } from 'libs/shared/registro/src/lib/interfaces';
+import { user, verifica, voto } from '@istruzione/shared/registro';
 
 import {FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -52,7 +52,7 @@ export class InsertVotoComponent implements OnInit{
     return day !== 0 ;
   }
   getCorsi(){
-    this.corsi=this.corsiService.getCorsiByProfessore(this.utente.id);
+    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
   }
   getAlunni(){
     this.alunni= this.alunniback.getAlunnibyClasse(this.selected)
@@ -60,8 +60,7 @@ export class InsertVotoComponent implements OnInit{
       this.voti[i]='a';
     }
   }
-  saveVoti(){
-
+  getVoti(){
     let i=0;
     let v:voto[]=[];
     for (let index = 0; index < this.voti.length; index++) {
@@ -74,6 +73,27 @@ export class InsertVotoComponent implements OnInit{
         i=i+1
       }
     }
+    return v;
+  }
+  getalunniverifica(){
+    let v=[];
+    let i=0;
+    for (let index = 0; index < this.voti.length; index++) {
+
+      if(this.voti[index]!=='a'){
+        v[i]={
+          "alunno":this.alunni[index].nome + ' '+ this.alunni[index].cognome,
+          "voto":this.voti[index]
+        }
+        i=i+1
+      }
+    }
+    return v;
+  }
+  saveVoti(){
+
+    let i=0;
+    let v=this.getVoti();
     this.tosave={
       "classe":this.selected,
       "type":this.type,

@@ -4,7 +4,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CorsoService, DocenteService, LezioniService, RegistroService } from '@istruzione/shared/registro';
-import { corso, user } from 'libs/shared/registro/src/lib/interfaces';
+import { corso, user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-corsi-alunno',

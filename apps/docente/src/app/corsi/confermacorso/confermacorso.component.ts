@@ -1,0 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { corso, user, CorsoService } from '@istruzione/shared/registro';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'istruzione-confermacorso',
+  templateUrl: './confermacorso.component.html',
+  styleUrls: ['./confermacorso.component.scss'],
+})
+export class ConfermacorsoComponent implements OnInit{
+  stateCtrl = new FormControl('');
+  filteredCorsi!: Observable<corso[]>;
+  selected!:string;
+  corsi!:corso[]
+  addprofessore:any;
+  remprof:any;
+
+
+  docenti!:user[];
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+
+  });
+  constructor(private _formBuilder:FormBuilder,private corsiService:CorsoService,private router:Router){  }
+
+  getCorsi(){
+    return this.corsiService.getAllCorsiNotConfirmed();
+  }
+  ngOnInit(){
+    this.corsi=this.corsiService.getAllCorsiNotConfirmed();
+
+  }
+  updateCorso(){
+    this.corsiService.ConfirmCorso(this.selected)
+    this.router.navigate(['/home/docente'])
+  }
+}

@@ -5,11 +5,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 
 import { RemoteEntryComponent } from './entry.component';
-import { NxWelcomeComponent } from '../nx-welcome.component';
 import { remoteRoutes } from './entry.routes';
 
 @NgModule({
-  declarations: [RemoteEntryComponent, NxWelcomeComponent],
+  declarations: [RemoteEntryComponent],
   imports: [
     MatCardModule,
     MatDividerModule,

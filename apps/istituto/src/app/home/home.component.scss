@@ -7,6 +7,23 @@
     display: flex;
     width: 100vw;
     justify-content: space-between;
+    mat-toolbar{
+      background-color: #4A55A2;
+      color: #C5DFF8;
+      .user{
+        height: 30px;
+        width: 30px;
+        align-items: center;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .user:hover{
+        background-color: #A0BFE0;
+        color: #4A55A2;
+      }
+    }
   }
   .views{
     display: flex;
@@ -26,12 +43,50 @@
           display: flex;
           width: 250px;
           height: 100%;
+          background-color: #C5DFF8;
+
           mat-list{
             display: flex;
             flex-direction: column;
             height: calc(100% - 16px);
             justify-content: center;
             align-items: center;
+            mat-list-item{
+              span{
+                font-weight: 550;
+                color: #4A55A2;
+              }
+            }
+            mat-list-item:hover {
+              background-color: #4A55A2;
+              span{
+                font-weight: 550;
+                color: #C5DFF8;
+              }
+              height: 60px;
+            }
+
+            mat-list-item:active {
+              background-color: #A0BFE0;
+              span{
+                font-weight: 550;
+                color: #4A55A2;
+              }
+            }
+            .activated{
+              background-color: #7895CB;
+              span{
+                font-weight: 550;
+                color: #ffffff;
+              }
+            }
+            .activated:hover{
+              background-color: #ffffff;
+              span{
+                font-weight: 550;
+                color: #4A55A2;
+              }
+            }
           }
         }
         mat-drawer-content{
@@ -62,17 +117,5 @@
   flex: 1 1 auto;
 }
 
-mat-list-item:hover {
-  background-color: rgb(208, 208, 208);
-  height: 60px;
-}
 
-mat-list-item:active {
-  background-color: rgb(170, 170, 170);
-}
-.activated{
-  background-color: rgb(170, 170, 170);
-}
-.activated:hover{
-  background-color: rgb(255, 255, 255);
-}
+

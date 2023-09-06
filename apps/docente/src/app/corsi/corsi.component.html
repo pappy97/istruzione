@@ -1,0 +1,125 @@
+<div *ngIf="type===0">
+  <h1>Gestione Corsi</h1>
+  <mat-accordion>
+    <mat-expansion-panel (closed)="showadd=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Aggiungi Corso
+        </mat-panel-title>
+        <mat-panel-description>
+          Aggiungi un nuovo corso
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="adding">
+      <button mat-raised-button color="primary" *ngIf="showadd" (click)="showadd=false">Aggiungi</button>
+      <div *ngIf="showadd===false">
+        <istruzione-inserimentocorso/>
+      </div>
+    </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (closed)="showupdate=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Modifica Corso
+        </mat-panel-title>
+        <mat-panel-description>
+          Modifica un corso
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="modify">
+        <button mat-raised-button color="primary" *ngIf="showupdate" (click)="showupdate=false;">Modifica</button>
+        <div *ngIf="showupdate===false">
+          <istruzione-modificacorso/>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (closed)="showremove=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Rimuovi Corso
+        </mat-panel-title>
+        <mat-panel-description>
+          Rimozione di un Corso
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="remove">
+        <button mat-raised-button color="primary" *ngIf="showremove" (click)="showremove=false">Rimuovi</button>
+        <div *ngIf="showremove===false">
+          <istruzione-rimuovicorso/>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (closed)="showconfirm=true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Conferma Corso
+        </mat-panel-title>
+        <mat-panel-description>
+          Conferma un corso Proposto da un docente
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="confirm">
+        <button mat-raised-button color="primary" *ngIf="showconfirm" (click)="showconfirm=false">Conferma</button>
+        <div *ngIf="showconfirm===false">
+          <istruzione-confermacorso/>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div *ngIf="type!==0">
+
+  <h1>CORSI</h1>
+<mat-card (click)="goToInsert()">
+  <mat-card-title>Crea Corso <mat-icon>add</mat-icon></mat-card-title>
+
+</mat-card>
+<br>
+<mat-divider/>
+
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false" *ngFor="let corso of getCorsi()">
+    <mat-expansion-panel-header [ngClass]="{'notConfirmed':!corso.isConfirmed}">
+      <mat-panel-title>
+        <span *ngIf="corso.isConfirmed">[{{corso.id}}]</span>  {{corso.titolo}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{corso.classe}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tab-group *ngIf="corso.isConfirmed">
+      <mat-tab label="Lezioni">
+        <mat-expansion-panel hideToggle *ngFor="let lezione of getLezioni(corso.id)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{lezione.data}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{lezione.classe}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          {{lezione.descrizione}}
+        </mat-expansion-panel>
+      </mat-tab>
+      <mat-tab label="Voti">
+        <mat-expansion-panel hideToggle *ngFor="let voto of getVoti(corso.id); let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Verifica {{voto.type===1? "Scritta":"Orale"}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{voto.data}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p *ngFor="let al of voto.voti">
+            {{getAlunno(al.alunno)}} {{al.voto}}
+          </p>
+        </mat-expansion-panel>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+</mat-accordion>
+
+</div>

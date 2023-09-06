@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {  CorsoService, LezioniService } from '@istruzione/shared/registro';
-import { lezione,  } from 'libs/shared/registro/src/lib/interfaces';
+import { lezione,  } from '@istruzione/shared/registro';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class InsertLezioneComponent implements OnInit{
     this.lezioni.getLezioni()
   }
   getCorsi(){
-    this.corsi=this.corsiService.getCorsiByProfessore(this.utente.id);
+    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
   }
 
   saveLezione(){

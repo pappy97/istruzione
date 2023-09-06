@@ -3,7 +3,7 @@
 import { Component, Input,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompitiService, CorsoService } from '@istruzione/shared/registro';
-import { compito, corso, user } from 'libs/shared/registro/src/lib/interfaces';
+import { compito, corso, user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-compiti',

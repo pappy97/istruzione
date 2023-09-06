@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompitiService, CorsoService } from '@istruzione/shared/registro';
-import { user, compito } from 'libs/shared/registro/src/lib/interfaces';
+import { user, compito } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-compiti',

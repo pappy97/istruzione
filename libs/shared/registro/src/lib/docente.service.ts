@@ -23,7 +23,7 @@ export class DocenteService {
     await this.db.collection('users').add(docente)
   }
   public async getDocentiBack(){
-    this.db.collection('users',ref => ref.where('type', '==', 2)).valueChanges().subscribe((e:any)=>{this.Docenti=e})
+    this.db.collection('users',ref => ref.where('type', 'in', [0,2])).valueChanges().subscribe((e:any)=>{this.Docenti=e})
   }
   public getAllDocenti(){
     return this.Docenti;

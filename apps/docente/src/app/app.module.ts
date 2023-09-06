@@ -4,12 +4,21 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DataService } from "@istruzione/shared/registro"
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+
+import { DataService } from '@istruzione/shared/registro';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ],
   imports: [
+    MatListModule,
+    MatSidenavModule,
+    MatDividerModule,
+
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(DataService),
     BrowserModule,

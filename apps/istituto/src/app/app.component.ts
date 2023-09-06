@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RetriveDBService } from '@istruzione/shared/registro';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'istruzione-root',
@@ -15,5 +16,4 @@ export class AppComponent implements OnInit {
     if(localStorage.getItem('user')==='null') this.router.navigate(['login']);
     else {this.router.navigate(['home'])}
   }
-
 }

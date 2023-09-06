@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnInit } from '@angular/core';
 import { AlunniBackService, CorsoService, PagelleService, RegistroService } from '@istruzione/shared/registro';
-import { corso, pagella, user } from 'libs/shared/registro/src/lib/interfaces';
+import { corso, pagella, user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-pagella-docente',
@@ -23,7 +23,7 @@ export class PagellaDocenteComponent implements OnInit{
     this.getCorsi()
   }
   getCorsiPagelle(){
-    return this.corsi.getCorsiByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id))
+    return this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id))
   }
   getPagelle(corso:any){
     return this.pag.getPagelleByCorso(corso)
@@ -33,7 +33,7 @@ export class PagellaDocenteComponent implements OnInit{
     return ""+a?.cognome+" "+a?.nome
   }
   getCorsi(){
-    this.Corsi= this.corsi.getCorsiByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id)==false)
+    this.Corsi= this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id)==false)
     return this.Corsi;
   }
   getAlunni(classe:any){

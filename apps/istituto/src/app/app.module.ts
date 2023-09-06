@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner"
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AuthService } from './auth.service';
+import { AuthService } from '@istruzione/shared/registro';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -40,18 +41,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CompitiComponent } from './compiti/compiti.component';
-import { DocentiComponent } from './docenti/docenti.component';
 import { ClassComponent } from './class/class.component';
 import { OrarioComponent } from './orario/orario.component';
-import { AlunniComponent } from './alunni/alunni.component';
-import { InsertAlunnoComponent } from './insert-alunno/insert-alunno.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { UpdateAlunnoComponent } from './update-alunno/update-alunno.component';
-import { RemoveAlunnoComponent } from './remove-alunno/remove-alunno.component';
-import { InsertdocenteComponent } from './docenti/insertdocente/insertdocente.component';
-import { UpdatedocenteComponent } from './docenti/updatedocente/updatedocente.component';
-import { RemovedocenteComponent } from './docenti/removedocente/removedocente.component';
 
 @NgModule({
   declarations: [
@@ -59,21 +52,14 @@ import { RemovedocenteComponent } from './docenti/removedocente/removedocente.co
     LoginComponent,
     HomeComponent,
     CompitiComponent,
-    DocentiComponent,
     ClassComponent,
     OrarioComponent,
-    AlunniComponent,
-    InsertAlunnoComponent,
-    UpdateAlunnoComponent,
-    RemoveAlunnoComponent,
-    InsertdocenteComponent,
-    UpdatedocenteComponent,
-    RemovedocenteComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule ,
 
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(DataService, {

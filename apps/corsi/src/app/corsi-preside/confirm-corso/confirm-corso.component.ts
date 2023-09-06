@@ -3,9 +3,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CorsoService, DocenteService } from '@istruzione/shared/registro';
-import { corso, user } from 'libs/shared/registro/src/lib/interfaces';
-import { Observable, startWith, map } from 'rxjs';
+import { CorsoService } from '@istruzione/shared/registro';
+import { corso, user } from '@istruzione/shared/registro';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'istruzione-confirm-corso',

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnInit } from '@angular/core';
 import { RetriveDBService } from '@istruzione/shared/registro';
-import { user } from 'libs/shared/registro/src/lib/interfaces';
+import { user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-pagelle-entry',

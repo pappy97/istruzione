@@ -1,0 +1,83 @@
+<mat-stepper  #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Classi</ng-template>
+        Informazioni Personali
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Nome" [(ngModel)]="nome" formControlName="firstCtrl" required>
+          </mat-form-field>
+          </p>
+          <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Cognome</mat-label>
+            <input matInput placeholder="Cognome" [(ngModel)]="cognome" formControlName="first2Ctrl" required>
+          </mat-form-field>
+        </p>
+      <div>
+        <button mat-button matStepperNext>Avanti</button>
+      </div>
+      </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+    <ng-template matStepLabel>Email</ng-template>
+    <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" formControlName="secondCtrl" required>
+    </mat-form-field>
+    </p>
+    <p>
+    <mat-form-field appearance="fill">
+      <mat-label>password</mat-label>
+        <input matInput [(ngModel)]="password"  type="password" formControlName="second2Ctrl" required>
+    </mat-form-field>
+    </p>
+    <div>
+      <button mat-button matStepperPrevious>Indietro</button>
+      <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+    <ng-template matStepLabel>Classe</ng-template>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleziona la Classe</mat-label>
+      <mat-select [(value)]="classe" formControlName="thirdCtrl">
+        <mat-option value="-1">Nessuno</mat-option>
+        <mat-option *ngFor="let item of _Classi" value="{{ item }}">{{
+          item
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button matStepperNext>Avanti</button>
+    </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Conferma</ng-template>
+    <p>Confermi?</p>
+    <p>
+      Nome: {{nome}}
+    </p>
+    <p>
+      Cognome: {{cognome}}
+    </p>
+    <p>
+      Email: {{email}}
+    </p>
+    <p>
+      Classe:{{classe}}
+    </p>
+    <div>
+        <button mat-button matStepperPrevious>Indietro</button>
+        <button mat-button (click)="saveAlunno()">Confermo</button>
+    </div>
+  </mat-step>
+</mat-stepper>

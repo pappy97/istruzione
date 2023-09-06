@@ -18,15 +18,6 @@ import { PagellaAlunnoComponent } from '../pagella/pagella-alunno/pagella-alunno
 import { PagellaDocenteComponent } from '../pagella/pagella-docente/pagella-docente.component';
 import { PagellaPresideComponent } from '../pagella/pagella-preside/pagella-preside.component';
 
-
-import { provideFirebaseApp } from '@angular/fire/app';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { environment } from 'apps/istituto/src/environments/environment';
-import { initializeApp } from 'firebase/app';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -39,12 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PagellaPresideComponent,
   ],
   imports: [
-    AngularFireDatabaseModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
 
     CommonModule,
     RouterModule.forChild(remoteRoutes),

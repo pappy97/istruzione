@@ -1,15 +1,15 @@
+<ngx-spinner type="ball-scale-multiple" bdColor="#C5DFF8" color="#4A55A2"></ngx-spinner>
 <div class="body">
   <div class="toolbar">
     <mat-toolbar>
       <span>My App</span>
       <span class="example-spacer"></span>
-      <span>
-        <button (click)="goTo(0)">
-
-          <mat-icon>person</mat-icon>
-        </button>
+      <span class="user">
+        <mat-icon (click)="goTo(0)">person</mat-icon>
       </span>
-      <span> <mat-list-item (click)="logOut()">LogOut</mat-list-item></span>
+      <span class="user">
+        <mat-icon (click)="logOut()">logout</mat-icon>
+      </span>
     </mat-toolbar>
   </div>
   <div class="views">
@@ -17,24 +17,23 @@
       <mat-drawer-container class="content">
         <mat-drawer mode="side" opened class="sidebar">
           <mat-list *ngIf="type!==0">
-            <mat-list-item (click)="goTo(1)" [ngClass]="{'activated':selected===1}">Registro</mat-list-item>
+            <mat-list-item (click)="goTo(1)" [ngClass]="{'activated':selected===1}"><span>Registro</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(2)" [ngClass]="{'activated':selected===2}" *ngIf="type===1">Compiti Assegnati</mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}" *ngIf="type===1">Docenti</mat-list-item>
+            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}" *ngIf="type===1"><span>Docenti</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}">Pagelle</mat-list-item>
+            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}"><span>Pagelle</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}">Corsi</mat-list-item>
+            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>
           </mat-list>
           <mat-list *ngIf="type===0">
-            <mat-list-item (click)="goTo(6)" [ngClass]="{'activated':selected===6}">Alunni</mat-list-item>
+            <mat-list-item (click)="goTo(6)" [ngClass]="{'activated':selected===6}"><span>Alunni</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}">Corsi</mat-list-item>
+            <mat-list-item (click)="goTo(8)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}">Docenti</mat-list-item>
+            <mat-list-item (click)="goTo(7)" [ngClass]="{'activated':selected===7}"><span>Docenti</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}">Pagelle</mat-list-item>
+            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}"><span>Pagelle</span></mat-list-item>
           </mat-list>
         </mat-drawer>
         <mat-drawer-content>

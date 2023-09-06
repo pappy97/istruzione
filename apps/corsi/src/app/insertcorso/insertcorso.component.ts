@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CorsoService, DocenteService } from '@istruzione/shared/registro';
-import { corso, user } from 'libs/shared/registro/src/lib/interfaces';
+import { corso, user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-insertcorso',

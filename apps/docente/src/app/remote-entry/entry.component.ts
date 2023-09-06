@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-docente-entry',
@@ -10,13 +11,14 @@ import { Router } from '@angular/router';
   styleUrls:['./docente.scss']
 })
 export class RemoteEntryComponent implements OnInit{
-  docente:any
+  docente!:user
+  type!: number;
+  selected=0;
   constructor(private router:Router){
   }
   ngOnInit(){
+
     this.docente=JSON.parse(localStorage.getItem("utente")!)
-  }
-  goToclass(id:string){
-    this.router.navigate(['classe',id])
+    this.type=this.docente.type;
   }
 }

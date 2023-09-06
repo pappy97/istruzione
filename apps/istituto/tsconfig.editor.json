@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../libs/shared/registro/src/lib/auth.service.ts", "../../libs/shared/registro/src/lib/user.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }

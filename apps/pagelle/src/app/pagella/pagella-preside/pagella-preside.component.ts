@@ -1,7 +1,6 @@
 /* eslint-disable prefer-const */
 import { Component, OnInit } from '@angular/core';
 import { AlunniBackService, CorsoService, PagelleService, RetriveDBService } from '@istruzione/shared/registro';
-import { corso } from 'libs/shared/registro/src/lib/interfaces';
 
 @Component({
   selector: 'istruzione-pagella-preside',
