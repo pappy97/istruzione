@@ -25,14 +25,20 @@ export class HomeComponent implements OnInit{
   showFiller= false;
   type: any;
   email:string="";
+  mobile:boolean = false;
+  showmenu:boolean = true;
 
   constructor (private spinner:NgxSpinnerService, private alunni:AlunniBackService,private docente:DocenteService,private router:Router,private auth:AuthService){}
   async ngOnInit(){
     this.spinner.show();
     await delay(2000);
     this.spinner.hide();
+    console.log(window.screen.width)
+    if (window.screen.width < 760) {
+      this.mobile = true;
+      this.showmenu = false;
+    }
     this.email=(JSON.parse(localStorage.getItem('user')!).email)
-    console.log(this.email)
     if(this.alunni.getAlunnobyEmail(this.email)!==undefined) {
       this.type=2;
       localStorage.setItem('utente',JSON.stringify(this.alunni.getAlunnobyEmail(this.email)))
@@ -53,8 +59,10 @@ export class HomeComponent implements OnInit{
     this.auth.SignOut()
   }
   goTo(scelta:number){
+    this.showmenu=false;
     this.selected=scelta;
     switch (scelta) {
+
       case 0: this.goType();  break;
       case 1: this.router.navigate(['home/registro']); break;
       case 2: this.router.navigate(['home/compiti']);  break;
@@ -66,5 +74,8 @@ export class HomeComponent implements OnInit{
       case 8: this.router.navigate(['home/docente/gestionecorsi']);  break;
       default: break;
     }
+  }
+  ShowMenu(){
+    this.showmenu= !this.showmenu;
   }
 }

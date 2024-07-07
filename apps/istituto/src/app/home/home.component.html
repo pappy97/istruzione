@@ -2,7 +2,10 @@
 <div class="body">
   <div class="toolbar">
     <mat-toolbar>
-      <span>My App</span>
+      <span *ngIf="mobile">
+        <mat-icon (click)="ShowMenu()">menu</mat-icon>
+      </span>
+      <span>TESI MFE ISTRUZIONE</span>
       <span class="example-spacer"></span>
       <span class="user">
         <mat-icon (click)="goTo(0)">person</mat-icon>
@@ -15,8 +18,13 @@
   <div class="views">
     <div class="contentr">
       <mat-drawer-container class="content">
-        <mat-drawer mode="side" opened class="sidebar">
-          <mat-list *ngIf="type!==0">
+        <mat-drawer mode="side" opened class="sidebar" *ngIf="showmenu">
+          <mat-list *ngIf="mobile" class="close-button">
+            <mat-list-item class="close-icon" (click)="showmenu=false">
+              <span><mat-icon>close</mat-icon></span>
+            </mat-list-item>
+          </mat-list>
+          <mat-list *ngIf="type!==0" class="side-list">
             <mat-list-item (click)="goTo(1)" [ngClass]="{'activated':selected===1}"><span>Registro</span></mat-list-item>
             <mat-divider></mat-divider>
             <mat-divider></mat-divider>
@@ -26,7 +34,7 @@
             <mat-divider></mat-divider>
             <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>
           </mat-list>
-          <mat-list *ngIf="type===0">
+          <mat-list *ngIf="type===0" class="side-list">
             <mat-list-item (click)="goTo(6)" [ngClass]="{'activated':selected===6}"><span>Alunni</span></mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item (click)="goTo(8)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>

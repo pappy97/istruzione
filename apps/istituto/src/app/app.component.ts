@@ -12,8 +12,9 @@ export class AppComponent implements OnInit {
   title = 'istituto';
   constructor(private router:Router, private db:RetriveDBService){}
   async ngOnInit(){
-    this.db.retrivedb()
-    if(localStorage.getItem('user')==='null') this.router.navigate(['login']);
-    else {this.router.navigate(['home'])}
+    this.db.retrivedb();
+    if(localStorage.getItem('user') && localStorage.getItem('user')!=='null')
+      {this.router.navigate(['home'])}
+    else  this.router.navigate(['login']); 
   }
 }

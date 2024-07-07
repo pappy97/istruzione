@@ -117,5 +117,26 @@
   flex: 1 1 auto;
 }
 
+@media only screen and (max-width:600px){
+  .sidebar{
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #C5DFF8 !important;
+}
+ .side-list{
+  height: calc(100% - 46px) !important;
 
+ }
+}
+.close-button{
+  display: flex !important;
+  height: 20px !important;
+  text-align: end !important;
+}
 

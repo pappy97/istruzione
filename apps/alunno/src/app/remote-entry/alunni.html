@@ -5,11 +5,11 @@
       <mat-card-subtitle>{{utente.email}}</mat-card-subtitle>
     </mat-card-header>
     <span></span>
-    <mat-card style="padding-top: 65px; padding-left: 15px;align-items: center;">
-      <mat-card-subtitle>Informazioni Personali</mat-card-subtitle>
-      <mat-card-content><p> Nome:  </p><p>{{utente.nome}}</p></mat-card-content>
-      <mat-card-content><p>Cognome:  </p><p>{{utente.cognome}}</p></mat-card-content>
-      <mat-card-content><p>email:  </p><p>{{utente.email}}</p></mat-card-content>
+    <mat-card class="card-info">
+      <mat-card-subtitle style="text-align: center;">Informazioni Personali</mat-card-subtitle>
+      <mat-card-content class="informazione"><p class="first-column"> Nome:  </p><p>{{utente.nome}}</p></mat-card-content>
+      <mat-card-content class="informazione"><p class="first-column">Cognome:  </p><p>{{utente.cognome}}</p></mat-card-content>
+      <mat-card-content class="informazione"><p class="first-column">email:  </p><p>{{utente.email}}</p></mat-card-content>
 
     </mat-card>
   </mat-card>
