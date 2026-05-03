@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { loadRemoteModule } from '@nrwl/angular/mf';
+import { loadRemoteModule } from '@nx/angular/mf';
 import { AppComponent } from './app.component';
 import { CompitiComponent } from './compiti/compiti.component';
 import { ClassComponent } from './class/class.component';
@@ -52,7 +52,9 @@ export const appRoutes: Route[] = [
       {
         path: 'pagelle',
         loadChildren: () =>
-          loadRemoteModule('pagelle', './Module').then((m) => m.RemoteEntryModule),
+          loadRemoteModule('pagelle', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
       },
       {
         path: 'compiti',

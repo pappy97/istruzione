@@ -17,48 +17,50 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 # Cronologia comandi inizio:
+
 creazione workspace monorepo :npx create-nx-workspace istruzione
 cambio cartella cs code: cd istruzione -> code.
-Installazione libreria per angular : npm install --save-dev @nrwl/angular
-creazione host istituto: npx nx g @nrwl/angular:host istituto
-creazione remote alunno: npx nx g @nrwl/angular:remote alunno --host=istituto
-creazione remote docente: npx nx g @nrwl/angular:remote docente --host=istituto
+Installazione libreria per angular : npm install --save-dev @nx/angular
+creazione host istituto: npx nx g @nx/angular:host istituto
+creazione remote alunno: npx nx g @nx/angular:remote alunno --host=istituto
+creazione remote docente: npx nx g @nx/angular:remote docente --host=istituto
 
 # Aggiungere Angular Material
- da terminale eseguire il comando: npm install @angular/material
- inserire nel file style.(css/scss/sass) del progetto(in questo caso alunno/docente/classe/istituto) @import '@angular/material/prebuilt-themes/indigo-pink.css';
- nel file app.module.ts del progetto importare: import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
- dopo inserire negli import di @NgModule BrowserAnimationsModule
- e infine nel module.ts dove si vuole inserire il material importare il material.
+
+da terminale eseguire il comando: npm install @angular/material
+inserire nel file style.(css/scss/sass) del progetto(in questo caso alunno/docente/classe/istituto) @import '@angular/material/prebuilt-themes/indigo-pink.css';
+nel file app.module.ts del progetto importare: import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+dopo inserire negli import di @NgModule BrowserAnimationsModule
+e infine nel module.ts dove si vuole inserire il material importare il material.
 
 npm i @angular/fire
 npm i -g fire-tools
 npx firebase logout
 npx firebase login
 npx firebase projects:list
-npx nx g @angular/fire:ng-add 
+npx nx g @angular/fire:ng-add
 Creare file module-federation.config.ts in root
 inserire:
 // Core libraries such as react, angular, redux, ngrx, etc. must be
 // singletons. Otherwise the applications will not work together.
 const coreLibraries = new Set([
-  '@angular/fire',
+'@angular/fire',
 ]);
 
 module.exports = {
-  // Share core libraries, and avoid everything else
-  shared: (libraryName, defaultConfig) => {
-    if (coreLibraries.has(libraryName)) {
-      return defaultConfig;
-    }
+// Share core libraries, and avoid everything else
+shared: (libraryName, defaultConfig) => {
+if (coreLibraries.has(libraryName)) {
+return defaultConfig;
+}
 
     // Returning false means the library is not shared.
     return false;
-  },
+
+},
 };
 
 andare in module-federation.config.ts dell'host ed inserire nella riga 1:
 const baseConfig = require('../../module-federation.config');
 e prima di name inserire:
-  ...baseConfig,
-
+...baseConfig,
