@@ -34,9 +34,11 @@ export class InserimentoAlunnoComponent {
       "classe":this.classe,
       "cognome":this.cognome,
       "email":this.email,
-      "id":this.alunni.getNewID(),
+      "id":'',
       "nome":this.nome,
-      "type":1
+      "tipo":1,
+      "matricola":"",
+      "cf":''
     }
     this.auth.SignUp(this.email,this.password)
     this.alunni.addAlunno(a);

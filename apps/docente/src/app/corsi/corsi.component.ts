@@ -23,7 +23,7 @@ export class CorsiComponent implements OnInit{
   ngOnInit(){
 
     this.docente=JSON.parse(localStorage.getItem("utente")!)
-    this.type=this.docente.type;
+    this.type=this.docente.tipo;
   }
   goToInsert(){
     this.router.navigate(['home/corsi/insertCorso'])
@@ -38,7 +38,6 @@ export class CorsiComponent implements OnInit{
     return this.ve.getVerificheByDocente(this.docente.id).filter(e=> e.corso==id)
   }
   getAlunno(id:any){
-    const i= this.al.getAlunnobyID(id);
-    return i?.nome+" "+ i?.cognome
+    return this.al.getNameAlunnobyID(id);
   }
 }

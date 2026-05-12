@@ -37,7 +37,6 @@ export class InsertLezioneComponent implements OnInit{
   ngOnInit(): void {
     this.utente=JSON.parse(localStorage.getItem('utente')!)
 
-    this.corsiService.getCorsi()
     this.lezioni.getLezioni()
   }
   getCorsi(){
@@ -53,7 +52,7 @@ export class InsertLezioneComponent implements OnInit{
       "data":""+this.d.transform(data,'yyyy-MM-dd'),
       "descrizione":this.descrizione,
       "docente":this.utente.id,
-      "id":this.lezioni.getNewId(this.corso,this.selected)
+      "id":''
     }
     this.lezioni.addLezione(tosave);
     this.router.navigate(['/'])

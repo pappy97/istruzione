@@ -8,17 +8,12 @@ import { appRoutes } from './app.routes';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner"
 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthService } from '@istruzione/shared/registro';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from '@istruzione/shared/registro';
 
 import { MatInputModule } from '@angular/material/input';
@@ -62,9 +57,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgxSpinnerModule ,
 
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(DataService, {
-      dataEncapsulation: false,
-    }),
 
     MatInputModule,
     MatMenuModule,
@@ -84,16 +76,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatAutocompleteModule,
     MatSnackBarModule,
-
-    AngularFireDatabaseModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

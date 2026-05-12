@@ -1,12 +1,11 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@angular/core';
-import {InMemoryDbService} from 'angular-in-memory-web-api'
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService implements InMemoryDbService{
+export class DataService {
   createDb() {
 
     const users=[

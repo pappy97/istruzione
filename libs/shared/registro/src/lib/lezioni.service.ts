@@ -1,24 +1,34 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { inject, Injectable } from '@angular/core';
 import { lezione } from './interfaces';
+
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LezioniService {
   private lezioni:lezione[]=[]
-  constructor(private db: AngularFirestore) { }
-  public async getLezioni(){
-    await this.getLezioniBack()
+  private firestore = inject(Firestore); 
+  
+  public getLezioni(){
+     this.getLezioniBack()
     return this.lezioni;
   }
 
-  public async getLezioniBack(){
-    this.db.collection('lezioni').valueChanges().subscribe((e:any)=>{
-      this.lezioni=e.sort((a:any,b:any)=>(a.data<b.data?-1:1))})
+  public getLezioniBack(){
+    collectionData(
+      query(
+        collection(this.firestore, 'lezioni'),
+        orderBy('data', 'asc')
+      ),
+      { idField: 'id' }
+    ).subscribe((data:any)=>{
+      this.lezioni = data
+    })
   }
   public getlezioneById(id:string){
     return this.lezioni.find(e=> e.id==id)
@@ -39,18 +49,13 @@ export class LezioniService {
   public getLezioniByCorso(corso:any){
     return this.lezioni.filter((e:lezione)=> e.corso==corso)
   }
-  public addLezione(lezione:lezione){
-    this.db.collection('lezioni').doc().set(lezione);
-  }
-  public getNewId(corso:any,classe:any){
-    let i=this.lezioni.filter((e:lezione)=> ((e.corso==corso)&&(e.classe==classe)))
-    i=i.sort((a,b)=>(a.id<b.id?-1:1))
-    let a=i[i.length-1].id;
-    let c=parseInt(a.substring(7))+1
-    let id="L"+classe+corso;
-    if(c<10)return id+"000"+c
-    else if (c<100) return id+"00"+c
-    else if (c<1000) return id+"0"+c
-    else return id+c
+  public async addLezione(lezione:lezione){
+    const ref = await addDoc(
+      collection(this.firestore, 'lezioni'),
+      lezione
+    );
+    await updateDoc(ref, {
+      id: ref.id
+    });
   }
 }

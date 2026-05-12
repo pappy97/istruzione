@@ -12,7 +12,7 @@ import { Observable, startWith, map } from 'rxjs';
   templateUrl: './remove-corso.component.html',
   styleUrls: ['./remove-corso.component.scss'],
 })
-export class RemoveCorsoComponent implements OnInit {
+export class RemoveCorsoComponent {
   stateCtrl = new FormControl('');
   filteredCorsi!: Observable<corso[]>;
   corsi!: corso[];
@@ -57,9 +57,6 @@ export class RemoveCorsoComponent implements OnInit {
         al.titolo.toLowerCase().includes(filterValue) ||
         al.id.includes(filterValue)
     );
-  }
-  ngOnInit() {
-    this.corsiService.getCorsi();
   }
   removeCorso() {
     this.corsiService.removeCorso(this.toUpdate);

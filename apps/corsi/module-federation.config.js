@@ -1,4 +1,4 @@
-const baseConfig = require('../../module-federation.confi');
+const baseConfig = require('../../module-federation.config');
 module.exports = {
   ...baseConfig,
   name: 'corsi',

@@ -18,8 +18,6 @@ export class VerificaStudenteComponent implements OnInit{
   constructor(private corsiService:CorsoService){}
   ngOnInit(){
     this.utente=JSON.parse(localStorage.getItem("utente")!)
-  console.log(this.verifica)
-    this.corsiService.getCorsi()
   }
 
   getVoto(ver:any){

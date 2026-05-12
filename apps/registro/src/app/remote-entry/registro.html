@@ -1,10 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <h1>Registro</h1>
-<div *ngIf="utente.type===2">
+<div *ngIf="utente.tipo===2">
   <mat-form-field appearance="fill" >
     <mat-label>Seleziona una classe</mat-label>
-    <mat-select [(value)]="selected"(closed)="getAlunni();getVerifica()">
-      <mat-option *ngFor=" let item of utente.classe" value="{{item}}">{{item}}</mat-option>
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor=" let item of classi" value="{{item}}">{{item}}</mat-option>
     </mat-select>
   </mat-form-field>
   <div *ngIf="selected!==''">
@@ -30,7 +30,7 @@
     </mat-tab-group>
   </div>
 </div>
-<div *ngIf="utente.type===1">
+<div *ngIf="utente.tipo===1">
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
     <mat-tab label="Verifiche Scritte">
       <istruzione-verifica-studente [verifica]="getScritteS()"></istruzione-verifica-studente>

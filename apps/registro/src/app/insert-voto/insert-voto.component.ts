@@ -43,8 +43,6 @@ export class InsertVotoComponent implements OnInit{
   constructor(private d:DatePipe,private router:Router,private alunniback:AlunniBackService,private corsiService:CorsoService,private _formBuilder: FormBuilder,private verifiche:RegistroService){}
   ngOnInit(): void {
     this.utente=JSON.parse(localStorage.getItem("utente")!)
-    this.alunniback.getAlunni()
-    this.corsiService.getCorsi()
     this.verifiche.getVerifiche()
   }
   myFilter (d: Date | null){
@@ -55,10 +53,12 @@ export class InsertVotoComponent implements OnInit{
     this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
   }
   getAlunni(){
-    this.alunni= this.alunniback.getAlunnibyClasse(this.selected)
-    for(let i=0; i<this.alunni.length;i++){
-      this.voti[i]='a';
-    }
+    this.alunniback.getAlunnibyClasse(this.selected).then(alunni=>{
+      this.alunni = alunni ??[];
+      for(let i=0; i<this.alunni.length;i++){
+        this.voti[i]='a';
+      }
+    })
   }
   getVoti(){
     let i=0;
@@ -101,7 +101,7 @@ export class InsertVotoComponent implements OnInit{
       "data":""+this.d.transform(this.data,'yyyy-MM-dd'),
       "professore":this.utente.id,
       "voti":v,
-      "id":this.verifiche.getNewId(this.corso,this.selected)
+      "id":''
     }
     console.log(this.tosave);
     this.verifiche.storeVerifiche(this.tosave);

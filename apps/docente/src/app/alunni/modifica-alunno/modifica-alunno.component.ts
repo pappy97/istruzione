@@ -23,7 +23,9 @@ export class ModificaAlunnoComponent implements OnInit{
     "email":"",
     "id":"",
     "nome":"",
-    "type":1
+    "tipo":1,
+    "matricola":"",
+    "cf":''
   };
 
   alunni!:user[];
@@ -45,15 +47,17 @@ export class ModificaAlunnoComponent implements OnInit{
     );
   }
   tryvalue(){
-    const a=this.alunniService.getAlunnobyID(this.stateCtrl.value)!
-    this.toUpdate=a;
+    const a= this.alunni.find(users=>users.id === this.stateCtrl.value)
+    this.toUpdate=a!;
   }
   private _filteralunni(value: string): user[] {
     const filterValue = value.toLowerCase();
     return this.alunni.filter(al => al.nome.toLowerCase().includes(filterValue)|| al.cognome.toLowerCase().includes(filterValue)|| al.id.includes(filterValue));
   }
   ngOnInit(){
-    this.alunni=this.alunniService.getAllAlunni()
+    this.alunniService.alunni$.subscribe(users =>{
+      this.alunni = users
+    })
   }
   updateAlunno(){
     this.alunniService.updateAlunno(this.toUpdate)

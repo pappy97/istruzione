@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component,OnInit } from '@angular/core';
-import { CorsoService, RetriveDBService } from '@istruzione/shared/registro';
-import { corso, user } from 'libs/shared/registro/src/lib/interfaces';
+import { user } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-corsi-entry',
@@ -9,9 +8,7 @@ import { corso, user } from 'libs/shared/registro/src/lib/interfaces';
 })
 export class RemoteEntryComponent implements OnInit{
   utente!:user;
-  constructor(private db:RetriveDBService){}
   async ngOnInit(){
-    this.db.retrivedb();
       this.utente=JSON.parse(localStorage.getItem('utente')!)
   }
 }

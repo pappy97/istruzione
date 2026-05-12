@@ -24,11 +24,30 @@ export class RemoteEntryComponent implements OnInit {
   utente!: any;
   alunni:any;
   selected='';
+  classi = [
+    "1A",
+    "1B",
+    "1C",
+    "2A",
+    "2B",
+    "2C",
+    "3A",
+    "3B",
+    "3C",
+    "4A",
+    "4B",
+    "4C",
+    "5A",
+    "5B",
+    "5C",
+  ]
   reg:verifica[]=[];
   constructor(private db:RetriveDBService,private alunniback:AlunniBackService,private comp:CompitiService,private registro:RegistroService,private lezioniService:LezioniService,private docenti:DocenteService){
   }
   ngOnInit(){
     this.utente=JSON.parse(localStorage.getItem("utente")!)
+    console.log("UTENTE",this.utente);
+    
   }
   getAlunni(){
     this.alunni= this.alunniback.getAlunnibyClasse(this.selected)
@@ -46,7 +65,7 @@ export class RemoteEntryComponent implements OnInit {
     return this.registro.getVerificheByStudent(this.utente.id).filter((el:any)=>el.type==2)
   }
   getVerifica(){
-    if(this.utente.type==2)this.reg= this.registro.getVerificheByDocente(this.utente.id)
+    if(this.utente.tipo==2)this.reg= this.registro.getVerificheByDocente(this.utente.id)
     else {this.reg=this.registro.getVerificheByClass(this.utente.classe)}
   }
   getLezioni(){

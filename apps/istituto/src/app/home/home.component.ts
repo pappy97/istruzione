@@ -31,35 +31,45 @@ export class HomeComponent implements OnInit{
   constructor (private spinner:NgxSpinnerService, private alunni:AlunniBackService,private docente:DocenteService,private router:Router,private auth:AuthService){}
   async ngOnInit(){
     this.spinner.show();
-    await delay(2000);
+    await new Promise(res => setTimeout(res, 2000));
     this.spinner.hide();
-    console.log(window.screen.width)
+    
     if (window.screen.width < 760) {
       this.mobile = true;
       this.showmenu = false;
     }
-    this.email=(JSON.parse(localStorage.getItem('user')!).email)
-    if(this.alunni.getAlunnobyEmail(this.email)!==undefined) {
-      this.type=2;
-      localStorage.setItem('utente',JSON.stringify(this.alunni.getAlunnobyEmail(this.email)))
-      this.router.navigate(['home/alunno/'])
+    this.email=(JSON.parse(localStorage.getItem('user')!)?.email)
+    if (!this.email) {
+      this.router.navigate(['login']);
+    return;
     }
     else{
-      localStorage.setItem('utente',JSON.stringify(this.docente.getDocenteByEmail(this.email)))
-      this.type=JSON.parse(localStorage.getItem('utente')!).type;
-      this.router.navigate(['home/docente'])
+      const u = this.alunni.getUserByEmail(this.email);
+      u.then(user=>{
+        if(user){
+          localStorage.setItem('utente',JSON.stringify(user));
+        }
+      })
     }
+   
+  const role = await this.alunni.getUserRole(this.email);
+  if (role === 'alunno') {
+    this.router.navigate(['home/alunno']);
+  }
+
+  if (role === 'docente') {
+    this.router.navigate(['home/docente']);
+  }
 
   }
   goType(){
-      if(JSON.parse(localStorage.getItem('utente')!).type==1) {this.router.navigate(['home/alunno/'])}
+      if(JSON.parse(localStorage.getItem('user')!).tipo==1) {this.router.navigate(['home/alunno/'])}
       else this.router.navigate(['home/docente'])
   }
   logOut(){
     this.auth.SignOut()
   }
   goTo(scelta:number){
-    this.showmenu=false;
     this.selected=scelta;
     switch (scelta) {
 

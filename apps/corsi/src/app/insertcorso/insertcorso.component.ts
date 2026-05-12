@@ -54,7 +54,7 @@ export class InsertcorsoComponent implements OnInit{
     this.tosave={
     "classe":this.selected,
     "docenti":docs,
-    "id":this.corso.getNewId(),
+    "id":'',
     "isConfirmed":false,
     "titolo":this.titolo
     }

@@ -25,7 +25,9 @@ export class RimuoviAlunnoComponent implements OnInit{
     return this.alunni.filter(al => al.nome.toLowerCase().includes(filterValue)|| al.cognome.toLowerCase().includes(filterValue)|| al.id.includes(filterValue));
   }
   ngOnInit(){
-    this.alunni=this.al.getAllAlunni()
+    this.al.alunni$.subscribe(users=>{
+      this.alunni = users;
+    })
   }
   removeAlunno(){
     this.al.deleteAlunno(this.stateCtrl.value!)

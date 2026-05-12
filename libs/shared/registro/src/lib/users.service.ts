@@ -1,19 +1,30 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { inject, Injectable } from '@angular/core';
+import { Firestore, collection, collectionData, query } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+  private firestore = inject(Firestore); 
 
-  constructor(private db:AngularFirestore) { }
   public getType(email:string){
-    return this.db.collection('users',ref => ref.where('email', '==', email)).get()
+    
+    const q= query(
+      collection(this.firestore,'users'),
+      where('email', '==', email)
+    )
+    return collectionData(q,{idField:'id'})
   }
   public getUsers(){
-    return this.db.collection('users').get()
+    return collectionData(
+      query(
+        collection(this.firestore,'users')
+      ),
+      {idField:'id'}
+    )   
   }
 }

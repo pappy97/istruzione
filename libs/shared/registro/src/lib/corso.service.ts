@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { inject, Injectable } from '@angular/core';
 import { corso } from './interfaces';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CorsoService {
-
-  constructor(private db: AngularFirestore) { }
+  private firestore = inject(Firestore); 
+  corsi$: Observable<corso[]> = collectionData(
+    query(
+      collection(this.firestore, 'corsi'),
+      orderBy('id','asc')
+    ),
+    { idField: 'id' }
+  ) as Observable<corso[]>;
   private Corsi:corso[]=[]
 
-  public async getCorsi(){
-    await this.getCorsiBack()
-    return this.Corsi;
-  }
-
-  public async getCorsiBack(){
-    this.db.collection('corsi').valueChanges().subscribe((e:any)=>{this.Corsi=e.sort((a:any,b:any)=>(a.id<b.id?-1:1))})
-  }
   public getCorsoById(id:string){
     return this.Corsi.find(e=> e.id==id)
   }
@@ -40,8 +39,14 @@ export class CorsoService {
   public getCorsiNotConfirmedByClasse(classe:any){
     return this.Corsi.filter(e=> e.classe===classe && !e.isConfirmed)
   }
-  public addCorso(corso:corso){
-    this.db.collection('corsi').doc().set(corso);
+  public async addCorso(corso:corso){
+    const ref = await addDoc(
+      collection(this.firestore, 'corsi'),
+      corso
+    );
+    await updateDoc(ref, {
+      id: ref.id
+    });
   }
 
   public getAllCorsiConfirmed(){
@@ -51,35 +56,28 @@ export class CorsoService {
     return this.Corsi.filter(e=>e.isConfirmed==false);
   }
   public UpdateCorso(corso:corso){
-    this.db.collection('corsi',ref=>ref.where('id', '==', corso.id)).get().subscribe(e=>{
-      e.docs.forEach(doc=>{
-        this.db.collection('corsi').doc(doc.id).set(corso)
-      })
-    })
+   setDoc(
+      doc(this.firestore, 'corsi', corso.id),
+      corso
+   )
   }
-  public ConfirmCorso(corso:string){
-    this.db.collection('corsi',ref=>ref.where('id', '==', corso)).get().subscribe(e=>{
-      e.docs.forEach(doc=>{
-        this.db.collection('corsi').doc(doc.id).update({"isConfirmed":true})
-      })
+  public async ConfirmCorso(corsoId:string){
+    const q = query(
+      collection(this.firestore, 'corsi'),
+      where('id', '==', corsoId)
+    );
+    const snapshot = await getDocs(q);
+    snapshot.forEach(async (d) =>{
+      await updateDoc(
+        doc(this.firestore,'corsi',d.id),
+        {isConfirmed:true}
+      )
     })
   }
 
   removeCorso(corso:corso){
-    this.db.collection('corsi',ref=>ref.where('id', '==', corso.id)).get().subscribe(e=>{
-      e.docs.forEach(doc=>{
-        this.db.collection('corsi').doc(doc.id).delete()
-      })
-    })
-  }
-  public getNewId(){
-    let i=this.Corsi
-    i=i.sort((a,b)=>(a.id<b.id?-1:1))
-    let a=i[i.length-1].id;
-    let c=parseInt(a)+1
-    if(c<10)return "000"+c
-    else if (c<100) return "00"+c
-    else if (c<1000) return "0"+c
-    else return ""+c
+    return deleteDoc(
+      doc(this.firestore, 'corsi', corso.id)
+    );
   }
 }

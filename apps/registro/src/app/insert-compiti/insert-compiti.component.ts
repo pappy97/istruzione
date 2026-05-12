@@ -35,7 +35,6 @@ export class InsertCompitiComponent implements OnInit{
   ngOnInit(): void {
     this.utente=JSON.parse(localStorage.getItem('utente')!)
 
-    this.corsiService.getCorsi()
     this.lezioni.getLezioni()
   }
   getCorsi(){
@@ -54,7 +53,7 @@ export class InsertCompitiComponent implements OnInit{
       "data":""+this.d.transform(data,'yyyy-MM-dd'),
       "description":this.descrizione,
       "professore":this.utente.id,
-      "id":this.comp.getNewId(this.corso,this.selected)
+      "id":''
     }
     this.comp.addCompito(tosave);
     this.router.navigate(['/'])

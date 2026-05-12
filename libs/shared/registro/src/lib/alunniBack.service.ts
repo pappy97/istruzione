@@ -1,61 +1,129 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, map, retry } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  query,
+  where,
+  addDoc,
+  doc,
+  setDoc,
+  deleteDoc,
+  getDocs,
+  updateDoc
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { user } from './interfaces';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AlunniBackService {
-  constructor(private db:AngularFirestore) { }
-  private Alunni: user[]=[];
-  public async getAlunni(){
-    await this.getAlunniFire()
-    return this.Alunni
-  }
-  private async getAlunniFire(){
-    this.db.collection('users',ref => ref.where('type', '==', 1)).valueChanges().subscribe((e:any)=>{this.Alunni=e})
-  }
-  public async addAlunno(alunno:user){
-    await this.db.collection('users').add(alunno)
+
+  private firestore = inject(Firestore);
+
+  // 🔥 REATTIVO (NO STATO LOCALE)
+  alunni$: Observable<user[]> = collectionData(
+    query(
+      collection(this.firestore, 'users'),
+      where('tipo', '==', 1)
+    ),
+    { idField: 'id' }
+  ) as Observable<user[]>;
+
+  // ➕ CREATE
+  async addAlunno(alunno: user) {
+    const ref = await addDoc(
+      collection(this.firestore, 'users'),
+      alunno
+    );
+    await updateDoc(ref, {
+      id: ref.id
+    });
   }
 
-  public getAlunnobyID(id:any){
-    return this.Alunni.find(e=>e.id==id)
+  // ✏️ UPDATE (usa document ID se possibile)
+  async updateAlunno(user: user) {
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('id', '==', user.id)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const promises = snapshot.docs.map(d =>
+      setDoc(doc(this.firestore, 'users', d.id), user)
+    );
+
+    await Promise.all(promises);
   }
-  public getAlunnobyEmail(email:string){
-    return this.Alunni.find(e=>e.email==email)
+
+  // 🗑 DELETE
+  async deleteAlunno(userId: string) {
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('id', '==', userId)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const promises = snapshot.docs.map(d =>
+      deleteDoc(doc(this.firestore, 'users', d.id))
+    );
+
+    await Promise.all(promises);
   }
-  public getAlunnibyClasse(classe:string){
-    return this.Alunni.filter(e=>e.classe==classe)
+
+  // 🔍 UTILITY (se proprio ti serve sync)
+  async getAlunniOnce(): Promise<user[]> {
+    const snapshot = await getDocs(collection(this.firestore, 'users'));
+    return snapshot.docs.map(d => d.data() as user);
   }
-  public getNewID(){
-    let e=this.Alunni.sort((a,b)=>a.id<b.id?-1:1)
-    let id=parseInt(e[e.length-1].id)+1
-    if(id<10)return "000"+id
-    if(id<100)return "00"+id
-    if(id<1000)return "0"+id
-    else return ""+id
+
+  async getUserByEmail(email: string): Promise<user | null> {
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('email', '==', email)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) return null;
+
+    return snapshot.docs[0].data() as user;
   }
-  getAllAlunni(){
-    return this.Alunni;
+
+  async getNameAlunnobyID(id: string): Promise<string> {
+    const q = query(
+      collection(this.firestore, 'users'),
+      where('id', '==', id)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) return '';
+
+    const user = snapshot.docs[0].data() as user;
+    return user.nome + ' ' + user.cognome
   }
-  updateAlunno(user:user){
-    this.db.collection('users',ref=>ref.where('id', '==', user.id)).get().subscribe(e=>{
-      e.docs.forEach(doc=>{
-        this.db.collection('users').doc(doc.id).set(user)
-      })
-    })
+
+  async getUserRole(email: string): Promise<'alunno' | 'docente' | null> {
+    const user = await this.getUserByEmail(email);
+    if (!user) return null;
+
+    return user.tipo === 1 ? 'alunno' : 'docente';
   }
-  deleteAlunno(user:string){
-    this.db.collection('users',ref=>ref.where('id', '==', user)).get().subscribe(e=>{
-      e.docs.forEach(doc=>{
-        this.db.collection('users').doc(doc.id).delete()
-      })
-    })
+
+  async getAlunnibyClasse(classe:string){
+        const q = query(
+      collection(this.firestore, 'users'),
+      where('classe', '==', classe)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) return null;
+
+    return snapshot.docs.map(d => d.data() as user);
   }
 }

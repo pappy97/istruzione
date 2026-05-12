@@ -31,7 +31,6 @@ export class CorsiDocentiComponent implements OnInit {
     return this.ve.getVerificheByDocente(this.utente.id).filter(e=> e.corso==id)
   }
   getAlunno(id:any){
-    const i= this.al.getAlunnobyID(id);
-    return i?.nome+" "+ i?.cognome
+    return this.al.getNameAlunnobyID(id);
   }
 }

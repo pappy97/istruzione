@@ -56,43 +56,34 @@
       "executor": "@nx/angular:module-federation-dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "istituto:build:production"
+          "buildTarget": "istituto:build:production"
         },
         "development": {
-          "browserTarget": "istituto:build:development"
+          "buildTarget": "istituto:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
         "port": 4200,
-        "publicHost": "http://localhost:4200"
+        "publicHost": "http://localhost:4200",
+        "devRemotes": ["registro", "alunno", "docente", "pagelle", "corsi"]
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "istituto:build"
+        "buildTarget": "istituto:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/istituto/**/*.ts", "apps/istituto/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/istituto/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/istituto/jest.config.ts"
       }
     }
   },

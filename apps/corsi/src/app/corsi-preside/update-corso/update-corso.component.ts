@@ -12,7 +12,7 @@ import { Observable, startWith, map } from 'rxjs';
   templateUrl: './update-corso.component.html',
   styleUrls: ['./update-corso.component.scss'],
 })
-export class UpdateCorsoComponent implements OnInit {
+export class UpdateCorsoComponent {
   stateCtrl = new FormControl('');
   filteredCorsi!: Observable<corso[]>;
   selected!: string;
@@ -71,9 +71,6 @@ export class UpdateCorsoComponent implements OnInit {
         al.titolo.toLowerCase().includes(filterValue) ||
         al.id.includes(filterValue)
     );
-  }
-  ngOnInit() {
-    this.corsiService.getCorsi();
   }
   updateCorso() {
     this.toUpdate.docenti = this.toUpdate.docenti.filter(

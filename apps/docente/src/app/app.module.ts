@@ -8,10 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { DataService } from '@istruzione/shared/registro';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
 @NgModule({
   declarations: [AppComponent, ],
   imports: [
@@ -20,7 +17,6 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     MatDividerModule,
 
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(DataService),
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(

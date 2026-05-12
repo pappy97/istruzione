@@ -10,7 +10,7 @@ import { Observable, startWith, map } from 'rxjs';
   templateUrl: './rimuovicorso.component.html',
   styleUrls: ['./rimuovicorso.component.scss'],
 })
-export class RimuovicorsoComponent implements OnInit{
+export class RimuovicorsoComponent {
   stateCtrl = new FormControl('');
   filteredCorsi!: Observable<corso[]>;
   corsi!:corso[]
@@ -47,9 +47,6 @@ export class RimuovicorsoComponent implements OnInit{
   private _filtercorsi(value: string): corso[] {
     const filterValue = value.toLowerCase();
     return this.corsi.filter(al => al.titolo.toLowerCase().includes(filterValue)||al.id.includes(filterValue));
-  }
-  ngOnInit(){
-    this.corsiService.getCorsi()
   }
   removeCorso(){
     this.corsiService.removeCorso(this.toUpdate)

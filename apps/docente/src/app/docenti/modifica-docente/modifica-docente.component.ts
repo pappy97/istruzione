@@ -21,7 +21,9 @@ export class ModificaDocenteComponent implements OnInit{
     "email":"",
     "id":"",
     "nome":"",
-    "type":1
+    "tipo":1,
+    "matricola":"",
+    "cf":''
   };
 
   docenti!:user[];

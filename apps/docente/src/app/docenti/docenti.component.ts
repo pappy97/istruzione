@@ -21,7 +21,7 @@ export class DocentiComponent implements OnInit{
   constructor(private router:Router,private docenteservice:DocenteService,private reg:RegistroService,private lez:LezioniService,private corsi:CorsoService){}
   ngOnInit(){
       this.utente=JSON.parse(localStorage.getItem('utente')!)
-      if (this.utente.type==2) this.router.navigate(['home']);
+      if (this.utente.tipo==2) this.router.navigate(['home']);
       this.docenti= this.docenteservice.getDocentiByClass(this.utente.classe);
       this.voti=this.reg.getVerificheByStudent(this.utente.id)
       this.lezioni=this.lez.getLezioniByClasse(this.utente.classe)

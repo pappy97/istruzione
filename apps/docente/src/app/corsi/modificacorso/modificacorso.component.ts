@@ -11,7 +11,7 @@ import { Observable, startWith, map } from 'rxjs';
   templateUrl: './modificacorso.component.html',
   styleUrls: ['./modificacorso.component.scss'],
 })
-export class ModificacorsoComponent implements OnInit{
+export class ModificacorsoComponent {
   stateCtrl = new FormControl('');
   filteredCorsi!: Observable<corso[]>;
   selected!:string;
@@ -58,9 +58,6 @@ export class ModificacorsoComponent implements OnInit{
   private _filtercorsi(value: string): corso[] {
     const filterValue = value.toLowerCase();
     return this.corsi.filter(al => al.titolo.toLowerCase().includes(filterValue)||al.id.includes(filterValue));
-  }
-  ngOnInit(){
-    this.corsiService.getCorsi()
   }
   updateCorso(){
     this.toUpdate.docenti=this.toUpdate.docenti.filter(e=>!e.includes(this.remprof))

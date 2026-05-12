@@ -33,9 +33,11 @@ export class InserimentoDocenteComponent {
       "classe":[],
       "cognome":this.cognome,
       "email":this.email,
-      "id":this.docenti.getNewID(),
+      "id":'',
       "nome":this.nome,
-      "type":2
+      "tipo":2,
+      "matricola":"",
+      "cf":''
     }
     this.auth.SignUp(this.email,this.password)
     this.docenti.addDocente(a);

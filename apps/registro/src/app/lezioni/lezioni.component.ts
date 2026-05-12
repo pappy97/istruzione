@@ -18,7 +18,6 @@ export class LezioniComponent implements OnInit{
   constructor(private docentiservice:DocenteService,private corsiService:CorsoService,private router:Router){}
   ngOnInit(): void {
     this.utente=JSON.parse(localStorage.getItem("utente")!)
-    this.corsiService.getCorsi()
   }
   getCorso(ver:any){
     const a=this.corsiService.getCorsoById(ver)

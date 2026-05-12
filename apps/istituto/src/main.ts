@@ -1,6 +1,11 @@
 import { setRemoteDefinitions } from '@nx/angular/mf';
 
 fetch('./assets/module-federation.manifest.json')
-  .then((res) => res.json())
-  .then((definitions) => setRemoteDefinitions(definitions))
-  .then(() => import('./bootstrap').catch((err) => console.error(err)));
+  .then((res) => {
+    return res.json();
+  })
+  .then((defs) => {
+    return setRemoteDefinitions(defs);
+  })
+  .then(() => import('./bootstrap'))
+  .catch((err) => console.error('MF ERROR:', err));

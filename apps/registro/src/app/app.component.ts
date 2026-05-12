@@ -4,10 +4,6 @@ import { RetriveDBService } from '@istruzione/shared/registro';
   selector: 'istruzione-root',
   template: '<router-outlet></router-outlet>',
 })
-export class AppComponent implements OnInit{
-  constructor(private db:RetriveDBService){}
+export class AppComponent {
 
-  async ngOnInit(){
-      await this.db.retrivedb()
-  }
 }

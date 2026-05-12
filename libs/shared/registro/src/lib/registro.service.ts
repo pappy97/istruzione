@@ -2,22 +2,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { verifica } from './interfaces';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroService {
+  private firestore = inject(Firestore); 
+
   private verifiche:verifica[]=[]
-  constructor(private db: AngularFirestore) { }
   public async getVerifiche(){
     await this.getVerificheBack()
     return this.verifiche;
   }
   public async getVerificheBack(){
-    this.db.collection('verifiche').valueChanges().subscribe((e:any)=>{this.verifiche=e.sort((a:any,b:any)=>(a.data>b.data?-1:1))})
+    collectionData(
+      query(
+        collection(this.firestore, 'verifiche'),
+        orderBy('data', 'desc') 
+      ),
+      { idField: 'id' }
+    ).subscribe((data:any)=>{
+      this.verifiche = data
+    })
+    
   }
   public getVerificheByDocente(id:string){
     return this.verifiche.filter(e=> e.professore==id)
@@ -61,19 +71,13 @@ export class RegistroService {
     })
     return sum/a.length
   }
-  public storeVerifiche(verifiche:verifica){
-     this.db.collection('verifiche').doc().set(verifiche);
-  }
-  public getNewId(corso:any,classe:any){
-    let i=this.verifiche.filter((e:verifica)=> ((e.corso==corso)&&(e.classe==classe)))
-    i=i.sort((a,b)=>(a.id<b.id?-1:1))
-    console.log(i)
-    let a=i[i.length-1].id;
-    let c=parseInt(a.substring(7))+1
-    let id="V"+classe+corso;
-    if(c<10)return id+"000"+c
-    else if (c<100) return id+"00"+c
-    else if (c<1000) return id+"0"+c
-    else return id+c
+  public async storeVerifiche(verifiche:verifica){
+    const ref = await addDoc(
+      collection(this.firestore, 'verifiche'),
+      verifiche
+    );
+    await updateDoc(ref, {
+      id: ref.id
+    });
   }
 }

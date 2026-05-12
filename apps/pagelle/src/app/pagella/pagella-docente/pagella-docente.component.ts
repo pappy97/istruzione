@@ -20,7 +20,6 @@ export class PagellaDocenteComponent implements OnInit{
   ngOnInit(){
     this.utente=JSON.parse(localStorage.getItem('utente')!)
     this.pag.getPagelle()
-    this.getCorsi()
   }
   getCorsiPagelle(){
     return this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id))
@@ -29,8 +28,7 @@ export class PagellaDocenteComponent implements OnInit{
     return this.pag.getPagelleByCorso(corso)
   }
   getAlunno(alunno:any){
-    let a=this.al.getAlunnobyID(alunno)
-    return ""+a?.cognome+" "+a?.nome
+   return this.al.getNameAlunnobyID(alunno);
   }
   getCorsi(){
     this.Corsi= this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id)==false)
@@ -50,21 +48,24 @@ export class PagellaDocenteComponent implements OnInit{
   }
   Pubblica(corso:any,id:any){
     let pagelle:pagella[]=[];
-    let alunni=this.getAlunni(corso.classe)
-    this.Corsi=this.Corsi.filter(e=>e.id!=corso.id)
-    for(let i=0;i<this.voto.length;i++){
-      let p:pagella={
-        "alunno":alunni[i].id,
-        "classe":corso.classe,
-        "corso":corso.id,
-        "isconfirmed":false,
-        "id":this.pag.getNewId(corso.id,alunni[i].id),
-        "professore":this.utente.id,
-        "voto":this.voto[i]
+    this.getAlunni(corso.classe).then(alunni=>{
+      if(alunni){
+        this.Corsi=this.Corsi.filter(e=>e.id!=corso.id)
+        for(let i=0;i<this.voto.length;i++){
+          let p:pagella={
+            "alunno":alunni?.[i].id,
+            "classe":corso.classe,
+            "corso":corso.id,
+            "isconfirmed":false,
+            "id":'',
+            "professore":this.utente.id,
+            "voto":this.voto[i]
+          }
+          pagelle.push(p)
+        }
+        this.pag.addPagelle(pagelle);
       }
-      pagelle.push(p)
-    }
-    this.pag.addPagelle(pagelle);
+    })
 
   }
 }

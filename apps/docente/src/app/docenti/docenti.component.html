@@ -1,4 +1,4 @@
-<div class="content" *ngIf="utente.type===1">
+<div class="content" *ngIf="utente.tipo===1">
   <h1>Docenti</h1>
   <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -42,7 +42,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<div *ngIf="utente.type===0">
+<div *ngIf="utente.tipo===0">
   <h1>Gestione Docenti</h1>
   <mat-accordion>
     <mat-expansion-panel (closed)="showadd=true">

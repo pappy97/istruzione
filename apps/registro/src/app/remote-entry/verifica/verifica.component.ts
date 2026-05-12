@@ -21,8 +21,7 @@ export class VerificaComponent implements OnInit{
     this.utente=JSON.parse(localStorage.getItem("user")!)
   }
   getNomeAlunno(id:string){
-    let a= this.al.getAlunnobyID(id);
-    return a?.nome+" "+a?.cognome
+    return this.al.getNameAlunnobyID(id);
   }
   goToinsert() {
     this.router.navigate([this.router.url+'/insertVoto'])

@@ -1,4 +1,4 @@
-<div class="alunno" *ngIf="utente.type===1">
+<div class="alunno" *ngIf="utente.tipo===1">
   <mat-card class="example-card">
     <mat-card-header>
       <mat-card-title>Salve {{utente.nome}} {{utente.cognome}}</mat-card-title>
@@ -14,7 +14,7 @@
     </mat-card>
   </mat-card>
 </div>
-<div *ngIf="utente.type===0">
+<div *ngIf="utente.tipo===0">
 <h1>Gestione Alunni</h1>
 
 </div>

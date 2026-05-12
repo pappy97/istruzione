@@ -1,10 +1,12 @@
 export interface user {
-  type:number;
+  tipo:number;
   email:string;
   nome:string;
   cognome:string;
   id:string;
   classe:string|string[];
+  cf:string;
+  matricola:string;
 }
 export interface voto{
   alunno:string,

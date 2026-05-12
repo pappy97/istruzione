@@ -19,6 +19,6 @@ export class RemoteEntryComponent implements OnInit{
   ngOnInit(){
 
     this.docente=JSON.parse(localStorage.getItem("utente")!)
-    this.type=this.docente.type;
+    this.type=this.docente.tipo;
   }
 }
