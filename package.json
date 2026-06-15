@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "deploy": "nx run istituto:build  && nx run alunno:build && nx run classi:build && nx run docente:build && nx run registro:build && nx run corsi:build && nx run pagelle:build && firebase deploy --only hosting"
+    "build": "nx run istituto:build && nx run alunno:build && nx run docente:build && nx run registro:build && nx run corsi:build && nx run pagelle:build",
+    "deploy": "npm run build && firebase deploy --only hosting"
   },
   "private": true,
   "devDependencies": {
