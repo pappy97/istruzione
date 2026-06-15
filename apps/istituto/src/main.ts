@@ -1,6 +1,6 @@
 import { setRemoteDefinitions } from '@nx/angular/mf';
 
-fetch('./assets/module-federation.manifest.json')
+fetch('./assets/module-federation.manifest.prod.json')
   .then((res) => {
     return res.json();
   })
