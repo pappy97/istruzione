@@ -1,13 +1,8 @@
-/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component,OnInit } from '@angular/core';
-import { AlunniBackService, CompitiService, DocenteService, LezioniService, RegistroService, RetriveDBService } from '@istruzione/shared/registro';
+import { Component } from '@angular/core';
+import { AlunniBackService, CompitiService, DocenteService, LezioniService, RegistroService } from '@istruzione/shared/registro';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { verifica } from '@istruzione/shared/registro';
-
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'istruzione-registro-entry',
   templateUrl: './registro.html',
@@ -20,61 +15,85 @@ import { verifica } from '@istruzione/shared/registro';
     ]),
   ],
 })
-export class RemoteEntryComponent implements OnInit {
-  utente!: any;
-  alunni:any;
-  selected='';
-  classi = [
-    "1A",
-    "1B",
-    "1C",
-    "2A",
-    "2B",
-    "2C",
-    "3A",
-    "3B",
-    "3C",
-    "4A",
-    "4B",
-    "4C",
-    "5A",
-    "5B",
-    "5C",
-  ]
-  reg:verifica[]=[];
-  constructor(private db:RetriveDBService,private alunniback:AlunniBackService,private comp:CompitiService,private registro:RegistroService,private lezioniService:LezioniService,private docenti:DocenteService){
+export class RemoteEntryComponent  {
+classe = '3A';
+role = 0;
+dataLezione = new Date();
+
+argomento = '';
+
+presenzeColumns = [
+  'studente',
+  'presente'
+];
+
+votiColumns = [
+  'studente',
+  'voto'
+];
+
+noteColumns = [
+  'studente',
+  'nota'
+];
+
+presColumns = [
+  'classe',
+  'presenti',
+  'assenti'
+];
+
+classi = new MatTableDataSource([
+  {
+    id: '1',
+    nome: '1A',
+    presenti: 2,
+    assenti: 2,
+  },
+  {
+    id: '2',
+    nome: '2A',
+    presenti: 2,
+    assenti: 2,
+  },
+  {
+    id: '3',
+    nome: '3A',
+    presenti: 2,
+    assenti: 2,
+  },
+]);
+dataSource = new MatTableDataSource([
+  {
+    id: '1',
+    nome: 'Mario',
+    cognome: 'Rossi',
+    presente: true,
+    voto: null,
+    nota: ''
+  },
+  {
+    id: '2',
+    nome: 'Luca',
+    cognome: 'Bianchi',
+    presente: true,
+    voto: null,
+    nota: ''
   }
-  ngOnInit(){
-    this.utente=JSON.parse(localStorage.getItem("utente")!)
-    console.log("UTENTE",this.utente);
-    
-  }
-  getAlunni(){
-    this.alunni= this.alunniback.getAlunnibyClasse(this.selected)
-  }
-  getScritte(){
-    return this.reg.filter((el:any)=>el.type==1)
-  }
-  getOrali(){
-    return this.reg.filter((el:any)=>el.type==2)
-  }
-  getScritteS(){
-    return this.registro.getVerificheByStudent(this.utente.id).filter((el:any)=>el.type==1)
-  }
-  getOraliS(){
-    return this.registro.getVerificheByStudent(this.utente.id).filter((el:any)=>el.type==2)
-  }
-  getVerifica(){
-    if(this.utente.tipo==2)this.reg= this.registro.getVerificheByDocente(this.utente.id)
-    else {this.reg=this.registro.getVerificheByClass(this.utente.classe)}
-  }
-  getLezioni(){
-  return this.lezioniService.getLezioniByClasse(this.selected);
-  }
-  getLezioniProf(){
-    return this.lezioniService.getLezioniByClasseAndProf(this.selected,this.utente.id)
-  }
-  getCompiti(){
-    console.log(this.comp.getCompitiByClasseAndProfessor(this.selected,this.utente.id))
-  }
+]);
+
+salvaRegistro() {
+
+  const registro = {
+    classe: this.classe,
+    data: this.dataLezione,
+    argomento: this.argomento,
+    studenti: this.dataSource.data
+  };
+
+  console.log(registro);
+
+  // firestore addDoc(...)
+}
+
 }

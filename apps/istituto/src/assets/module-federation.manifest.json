@@ -3,5 +3,6 @@
   "docente": "http://localhost:4202",
   "pagelle": "http://localhost:4203",
   "registro": "http://localhost:4205",
-  "corsi": "http://localhost:4206"
+  "corsi": "http://localhost:4206",
+  "classi": "http://localhost:4207"
 }

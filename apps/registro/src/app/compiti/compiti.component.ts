@@ -23,8 +23,9 @@ export class CompitiComponent implements OnInit{
     this.compiti= this.comp.getCompitiByClasseAndProfessor(this.classe,this.utente.id);
     return this.compiti
   }
-  getCorso(id:string){
-    return this.cor.getCorsoById(id)?.titolo;
+  getCorso(id: string) {
+    console.log('CIAO');
+    
   }
   goToinsert(){
     this.router.navigate([this.router.url+'/insertcompito'])

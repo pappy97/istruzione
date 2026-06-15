@@ -1,47 +1,183 @@
-<!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<h1>Registro</h1>
-<div *ngIf="utente.tipo===2">
-  <mat-form-field appearance="fill" >
-    <mat-label>Seleziona una classe</mat-label>
-    <mat-select [(value)]="selected">
-      <mat-option *ngFor=" let item of classi" value="{{item}}">{{item}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div *ngIf="selected!==''">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-      <mat-tab label="Alunni">
-        <p *ngFor="let item of alunni">{{item.nome}} {{item.cognome}}</p>
-      </mat-tab>
-      <mat-tab label="Verifica Scritta">
-        <istruzione-verifica [verifica]="getScritte()" [alunni]="alunni" ></istruzione-verifica>
-        Elenco verifiche scritte; inserimento nuovo Voto; controllo verifiche
-      </mat-tab>
-      <mat-tab label="Verifica Orale">
-        <istruzione-verifica [verifica]="getOrali()" [alunni]="alunni"></istruzione-verifica>
-        Elenco alunni con data verifica orale e voto + inserimento nuovovoto</mat-tab>
-      <mat-tab label="Lezioni">
-        <istruzione-lezioni [type]="2" [lezioni]="getLezioniProf()"></istruzione-lezioni>
-
-      </mat-tab>
-      <mat-tab label="Compiti">
-        <istruzione-compiti [classe]="selected"></istruzione-compiti>
-
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-</div>
-<div *ngIf="utente.tipo===1">
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab label="Verifiche Scritte">
-      <istruzione-verifica-studente [verifica]="getScritteS()"></istruzione-verifica-studente>
-      Elenco verifiche Scritte e Voto;
+@if(role === 2)
+{
+  <mat-card class="registro-card">
+    <mat-card-header>
+      <mat-card-title>
+        Registro Classe {{classe}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="toolbar">
+        <mat-form-field appearance="outline">
+          <mat-label>Data Lezione</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="dataLezione">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="salvaRegistro()">
+          <mat-icon>save</mat-icon>
+          Salva
+        </button>
+      </div>
+      <mat-tab-group animationDuration="300ms">
+        <mat-tab label="Presenze">
+          <div class="tab-content">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="studente">
+                <th mat-header-cell *matHeaderCellDef>
+                  Studente
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  {{studente.cognome}} {{studente.nome}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="presente">
+                <th mat-header-cell *matHeaderCellDef>
+                  Presente
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  <mat-checkbox
+                    [(ngModel)]="studente.presente">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="presenzeColumns"></tr>
+              <tr mat-row *matRowDef="let studente; columns: presenzeColumns"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Voti">
+          <div class="tab-content">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="studente">
+                <th mat-header-cell *matHeaderCellDef>
+                  Studente
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  {{studente.cognome}} {{studente.nome}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="voto">
+                <th mat-header-cell *matHeaderCellDef>
+                  Voto
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  <mat-form-field appearance="outline">
+                    <input
+                      matInput
+                      type="number"
+                      min="1"
+                      max="10"
+                      [(ngModel)]="studente.voto">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="votiColumns"></tr>
+              <tr mat-row *matRowDef="let studente; columns: votiColumns"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Note">
+          <div class="tab-content">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="studente">
+                <th mat-header-cell *matHeaderCellDef>
+                  Studente
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  {{studente.cognome}} {{studente.nome}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="nota">
+                <th mat-header-cell *matHeaderCellDef>
+                  Nota disciplinare
+                </th>
+                <td mat-cell *matCellDef="let studente">
+                  <mat-form-field appearance="outline">
+                    <textarea
+                      matInput
+                      rows="2"
+                      [(ngModel)]="studente.nota">
+                    </textarea>
+                  </mat-form-field>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="noteColumns"></tr>
+              <tr mat-row *matRowDef="let studente; columns: noteColumns"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Argomento">
+          <div class="tab-content">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Argomento della lezione</mat-label>
+              <textarea
+                matInput
+                rows="8"
+                [(ngModel)]="argomento">
+              </textarea>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+}
+@else if (role === 0) {
+  <mat-tab-group animationDuration="300ms">
+    <mat-tab label="Presenze">
+      <table mat-table [dataSource]="classi">
+        <ng-container matColumnDef="classe">
+          <th mat-header-cell *matHeaderCellDef>Classe</th>
+          <td mat-cell *matCellDef="let class">
+            {{class.nome}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="presenti">
+          <th mat-header-cell *matHeaderCellDef>Presenti</th>
+          <td mat-cell *matCellDef="let class">
+            {{class.presenti}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="assenti">
+          <th mat-header-cell *matHeaderCellDef>Assenti</th>
+          <td mat-cell *matCellDef="let class">
+            {{class.assenti}}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="presColumns"></tr>
+        <tr mat-row *matRowDef="let class; columns: presColumns"></tr>
+      </table>
     </mat-tab>
-    <mat-tab label="Verifiche Orali">
-      <istruzione-verifica-studente [verifica]="getOraliS()"></istruzione-verifica-studente>
-      Elenco  verifiche orali e voto</mat-tab>
-    <mat-tab label="Lezioni Giornaliere">
-      <istruzione-lezioni [lezioni]="getLezioni()"[type]=1></istruzione-lezioni>
+    <mat-tab label="Andamento Voti">
+      <!-- <p-chart
+        type="bar"
+        [data]="votiClassi">
+      </p-chart> -->
+    </mat-tab>
+    <mat-tab label="Note disciplinari">
+      
+    </mat-tab>
+    <mat-tab label="Registro Docenti">
+
+    </mat-tab>
+    <mat-tab label="Argomenti svolti">
+
+    </mat-tab>
+    <mat-tab label="Statistiche">
+
     </mat-tab>
   </mat-tab-group>
-
-</div>
+}
+@else if (role === 1) {
+  
+}

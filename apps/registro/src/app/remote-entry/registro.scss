@@ -1,47 +1,54 @@
+.registro-card {
+  margin: 24px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tab-content {
+  padding: 24px 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
 table {
   width: 100%;
 }
 
-tr.example-detail-row {
-  height: 0;
+mat-form-field {
+  width: 100%;
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
+.mat-mdc-header-row {
+  background: #eef2ff;
 }
 
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+.mat-mdc-row:hover {
+  background: #f8fafc;
 }
 
-.example-element-row td {
-  border-bottom-width: 0;
-}
+@media (max-width: 768px) {
 
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-}
+  .registro-card {
+    margin: 8px;
+  }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
+  table {
+    display: block;
+    overflow-x: auto;
+  }
 
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
 }

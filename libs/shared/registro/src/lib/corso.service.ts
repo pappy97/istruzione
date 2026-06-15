@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 import { inject, Injectable } from '@angular/core';
 import { corso } from './interfaces';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDocs, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,26 +19,19 @@ export class CorsoService {
   ) as Observable<corso[]>;
   private Corsi:corso[]=[]
 
-  public getCorsoById(id:string){
-    return this.Corsi.find(e=> e.id==id)
-  }
-  public getCorsiNotConfirmedByProfessore(prof:string){
-    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& !e.isConfirmed)
-  }
-  public getCorsiByProfessore(prof:string){
-    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof))
+  getCorsi() {
+    const usersRef = collection(this.firestore, 'corsi');
+    const q = query(usersRef);
+    return collectionData(q, { idField: 'id' }) as Observable<corso[]>;
   }
 
-  public getCorsiConfirmedByProfessore(prof:string){
-    return this.Corsi.filter((e:corso)=> e.docenti.includes(prof)&& e.isConfirmed)
+  public getCorsoById(id: string) {
+    const corsoRef = doc(this.firestore, `corsi/${id}`);
+    return docData(corsoRef,{idField: 'id'} ) as Observable<corso>;
   }
 
-  public getCorsiConfirmedByClasse(classe:any){
-    return this.Corsi.filter(e=> e.classe===classe && e.isConfirmed)
-  }
-  public getCorsiNotConfirmedByClasse(classe:any){
-    return this.Corsi.filter(e=> e.classe===classe && !e.isConfirmed)
-  }
+
+
   public async addCorso(corso:corso){
     const ref = await addDoc(
       collection(this.firestore, 'corsi'),
@@ -49,12 +42,6 @@ export class CorsoService {
     });
   }
 
-  public getAllCorsiConfirmed(){
-    return this.Corsi.filter(e=>e.isConfirmed);
-  }
-  public getAllCorsiNotConfirmed(){
-    return this.Corsi.filter(e=>e.isConfirmed==false);
-  }
   public UpdateCorso(corso:corso){
    setDoc(
       doc(this.firestore, 'corsi', corso.id),

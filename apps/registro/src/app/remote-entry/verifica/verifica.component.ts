@@ -26,7 +26,7 @@ export class VerificaComponent implements OnInit{
   goToinsert() {
     this.router.navigate([this.router.url+'/insertVoto'])
   }
-  getCorso(id:string){
-    return this.corso.getCorsoById(id)?.titolo;
+  getCorso(id: string) {
+    console.log('CIAO');
   }
 }

@@ -1,0 +1,6 @@
+@if(role==='preside'){
+  <istruzione-classi-preside-classi/>
+}
+@else if(role =='alunno'){
+  <istruzione-classi-studenti-dasboard-classe [classe]="user.classe!"/>
+}

@@ -4,14 +4,43 @@ export interface user {
   nome:string;
   cognome:string;
   id:string;
-  classe:string|string[];
+  classe?:string;
   cf:string;
-  matricola:string;
+  matricola?:string;
+  telefono?:string;
+  indirizzo?:string;
+  dataNascita?:Date;
+  annoScolastico?:string;
+  luogoNascita?: string;
+  materie?: Materia[];
 }
+
+export interface Materia{
+  classe: string,
+  corso:string
+}
+
+export interface Assegnazione {
+  classe: string;
+  materia: string;
+  id: string;
+  docente: string;
+}
+
 export interface voto{
   alunno:string,
   voto:number
 }
+
+export interface classe {
+  anno: string;
+  coordinatoreId:string
+  id: string;
+  numeroStudenti: number;
+  sezione: string;
+  nome: string;
+}
+
 export interface verifica{
   type:number,
   id:string,
@@ -25,10 +54,8 @@ export interface verifica{
 export interface corso{
 
     "id":string,
-    "classe":string,
-    "isConfirmed":boolean,
-    "docenti":string[],
-    "titolo":string
+    "nome":string
+    "descrizione":string
 }
 export interface lezione{
   "id":string,

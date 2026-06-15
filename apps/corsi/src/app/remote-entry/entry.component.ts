@@ -9,6 +9,6 @@ import { user } from '@istruzione/shared/registro';
 export class RemoteEntryComponent implements OnInit{
   utente!:user;
   async ngOnInit(){
-      this.utente=JSON.parse(localStorage.getItem('utente')!)
+    this.utente=JSON.parse(localStorage.getItem('utente')!)
   }
 }

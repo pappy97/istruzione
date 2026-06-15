@@ -2,10 +2,18 @@
 <div class="body">
   <div class="toolbar">
     <mat-toolbar>
-      <span *ngIf="mobile">
-        <mat-icon (click)="ShowMenu()">menu</mat-icon>
-      </span>
-      <span>TESI MFE ISTRUZIONE</span>
+      <div class="first-elem-div">
+        <mat-icon class="menu-icon"(click)="ShowMenu()">menu</mat-icon>
+        <mat-icon class="school-icon">school</mat-icon>
+        <div class="titleAndSub">
+          <span class="title">
+            Istruzione
+          </span>
+          <span class="subtitle">
+            Portale scolastico
+          </span>
+        </div>
+      </div>
       <span class="example-spacer"></span>
       <span class="user">
         <mat-icon (click)="goTo(0)">person</mat-icon>
@@ -18,33 +26,172 @@
   <div class="views">
     <div class="contentr">
       <mat-drawer-container class="content">
-        <mat-drawer mode="side" opened class="sidebar" *ngIf="showmenu">
-          <mat-list *ngIf="mobile" class="close-button">
-            <mat-list-item class="close-icon" (click)="showmenu=false">
-              <span><mat-icon>close</mat-icon></span>
-            </mat-list-item>
-          </mat-list>
-          <mat-list *ngIf="type!==0" class="side-list">
-            <mat-list-item (click)="goTo(1)" [ngClass]="{'activated':selected===1}"><span>Registro</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(3)" [ngClass]="{'activated':selected===3}" *ngIf="type===1"><span>Docenti</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}"><span>Pagelle</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(5)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>
-          </mat-list>
-          <mat-list *ngIf="type===0" class="side-list">
-            <mat-list-item (click)="goTo(6)" [ngClass]="{'activated':selected===6}"><span>Alunni</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(8)" [ngClass]="{'activated':selected===5}"><span>Corsi</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(7)" [ngClass]="{'activated':selected===7}"><span>Docenti</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item (click)="goTo(4)" [ngClass]="{'activated':selected===4}"><span>Pagelle</span></mat-list-item>
-          </mat-list>
-        </mat-drawer>
-        <mat-drawer-content>
+        @if(showmenu){
+          <mat-drawer mode="side" opened class="sidebar">
+            <mat-list class="list-menu">
+              <mat-list-item [ngClass]="{'active': selected === 0}"
+              (click)="goTo(0)"
+              >
+                <div class="first-elem-div">
+                  @switch (role) {
+                    @case ('preside') {
+                      <mat-icon class="side-menu-icon">analytics</mat-icon>
+                    }
+                    @case ('alunno'){
+                      <mat-icon class="side-menu-icon">space_dashboard</mat-icon>
+                    }
+                    @case('docente'){
+                      <mat-icon class="side-menu-icon">dashboard</mat-icon>
+                    }
+                  }
+                    <span class="subtitle">
+                      Dashboard
+                    </span>
+                </div>
+              </mat-list-item>
+              @if(role === 'preside'){
+                <mat-list-item [ngClass]="{'active': selected === 6}"
+                (click)="goTo(6)"
+                >
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">group</mat-icon>
+                      <span class="subtitle">
+                        Alunni
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item [ngClass]="{'active': selected === 7}"
+                (click)="goTo(7)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">person</mat-icon>
+                      <span class="subtitle">
+                        Docenti
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item  [ngClass]="{'active': selected === 8}" (click)="goTo(8)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">school</mat-icon>
+                      <span class="subtitle">
+                        Classi
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item  [ngClass]="{'active': selected === 5}" (click)="goTo(5)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">book</mat-icon>
+                      <span class="subtitle">
+                        Corsi
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item [ngClass]="{'active': selected === 1}" (click)="goTo(1)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">list_alt</mat-icon>
+                      <span class="subtitle">
+                        Registro
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item [ngClass]="{'active': selected === 4}" (click)="goTo(4)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">list_alt</mat-icon>
+                      <span class="subtitle">
+                        Pagelle
+                      </span>
+                  </div>
+                </mat-list-item>
+              }
+              @else if (role === 'docente') {
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">school</mat-icon>
+                      <span class="subtitle">
+                        Le mie classi
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">assignment</mat-icon>
+                      <span class="subtitle">
+                        Registro di Classe
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">event_upcoming</mat-icon>
+                      <span class="subtitle">
+                        Appelli
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">book</mat-icon>
+                      <span class="subtitle">
+                        Corsi
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">edit_square</mat-icon>
+                      <span class="subtitle">
+                        Voti
+                      </span>
+                  </div>
+                </mat-list-item>
+              }
+              @else if (role === 'alunno') {
+                <mat-list-item [ngClass]="{'active': selected === 1}"
+              (click)="goTo(1)">
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">school</mat-icon>
+                      <span class="subtitle">
+                        La mia classe
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">assignment</mat-icon>
+                      <span class="subtitle">
+                        Registro di Classe
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">event_upcoming</mat-icon>
+                      <span class="subtitle">
+                        Orario
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">book</mat-icon>
+                      <span class="subtitle">
+                        Compiti
+                      </span>
+                  </div>
+                </mat-list-item>
+                <mat-list-item>
+                  <div class="first-elem-div">
+                        <mat-icon class="side-menu-icon">analytics</mat-icon>
+                      <span class="subtitle">
+                        Voti
+                      </span>
+                  </div>
+                </mat-list-item>
+              }
+              <mat-divider></mat-divider>
+            </mat-list>
+          </mat-drawer>
+        }
+        <mat-drawer-content style="padding: 20px; height: calc(100% - 40px)!important;">
             <router-outlet></router-outlet>
         </mat-drawer-content>
       </mat-drawer-container>

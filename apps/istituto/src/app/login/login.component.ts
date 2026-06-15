@@ -18,13 +18,9 @@ export class LoginComponent {
 
   }
   ngOnInit(){
-    if(this.authService.isLoggedIn) this.router.navigate(['home'])
+    if(this.authService.isLoggedIn) this.router.navigate(['home/homepage'])
   }
   signIn(email:string,password:string){
-    this.authService.SignIn(email,password)
-  }
-  verify(){
-    console.log(this.email)
-    console.log(this.password)
+    this.authService.SignIn(email,password);
   }
 }

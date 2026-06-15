@@ -12,22 +12,41 @@ const coreLibraries = new Set([
 module.exports = {
   shared: (libraryName, defaultConfig) => {
 
-    // Firebase internals -> NON condividere
     if (
-      libraryName.startsWith('firebase/') ||
-      libraryName === 'firebase'
-    ) {
-      return false;
-    }
+  libraryName.startsWith('primeng') ||
+  libraryName === 'primeicons' ||
+  libraryName === 'chart.js' 
+) {
+  return {
+    ...defaultConfig,
+    singleton: true,
+    strictVersion: false,
+  };
+}
+
+if (libraryName === 'firebase') {
+  return {
+    singleton: true,
+    strictVersion: false,
+  };
+}
+
+if (libraryName.startsWith('firebase/')) {
+  return {
+    singleton: true,
+    strictVersion: false,
+  };
+}
 
     // AngularFire
-    if (libraryName === '@angular/fire') {
-      return {
-        singleton: true,
-        strictVersion: false,
-        requiredVersion: false,
-      };
-    }
+if (libraryName.startsWith('@angular/fire')) {
+  return {
+    ...defaultConfig,
+    singleton: true,
+    strictVersion: false,
+    requiredVersion: false,
+  };
+}
 
     // Angular + Material + CDK
     if (

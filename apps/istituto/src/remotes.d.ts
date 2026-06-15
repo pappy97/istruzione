@@ -11,3 +11,5 @@ declare module 'registro/Module';
 declare module 'corsi/Module';
 
 declare module 'pagelle/Module';
+
+declare module 'classi/Module';

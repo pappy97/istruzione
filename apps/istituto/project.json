@@ -66,7 +66,7 @@
       "options": {
         "port": 4200,
         "publicHost": "http://localhost:4200",
-        "devRemotes": ["registro", "alunno", "docente", "pagelle", "corsi"]
+        "devRemotes": ["registro", "alunno", "docente", "pagelle", "corsi","classi"]
       }
     },
     "extract-i18n": {

@@ -1,3 +1,3 @@
-<istruzione-corsi-alunno *ngIf="utente.tipo===1"></istruzione-corsi-alunno>
-<istruzione-corsi-docenti *ngIf="utente.tipo===2"></istruzione-corsi-docenti>
-<istruzione-corsi-preside *ngIf="utente.tipo===0"></istruzione-corsi-preside>
+@if(utente.tipo === 0){
+    <istruzione-corsi-preside-dashboard/>
+}

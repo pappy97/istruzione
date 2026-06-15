@@ -1,0 +1,88 @@
+  <div class="preside">
+    <div class="first-line">
+      <div class="title">
+        Benvenuto, Preside {{user.nome}} {{user.cognome}}!
+      </div>
+      <div class="subtitle">
+        Panoramica generale dell'istituto
+      </div>
+    </div>
+    <div class="dashboard">
+      <div class="card-number">
+        <div class="num-alunno" (click)="goTo(1)">
+            <mat-card>
+              <mat-card-content class="card-preside">
+                <div class="icon-card">
+                  <mat-icon class="icon">group</mat-icon>
+                </div>
+                <div class="description">
+                  <div class="number">
+                      {{numAlunni}}
+                  </div>
+                  <div class="subdescription">
+                      Alunni totali
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="num-docente" (click)="goTo(2)">
+            <mat-card>
+              <mat-card-content class="card-preside">
+                <div class="icon-card">
+                  <mat-icon class="icon">school</mat-icon>
+                </div>
+                <div class="description">
+                  <div class="number">
+                      {{numDocenti}}
+                  </div>
+                  <div class="subdescription">
+                      Docenti totali
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="num-classi">
+            <mat-card>
+              <mat-card-content class="card-preside">
+                <div class="icon-card">
+                  <mat-icon class="icon">book</mat-icon>
+                </div>
+                <div class="description">
+                  <div class="number">
+                      {{numClassi}}
+                  </div>
+                  <div class="subdescription">
+                      Classi Attive
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="num-corsi">
+            <mat-card>
+              <mat-card-content class="card-preside">
+                <div class="icon-card">
+                  <mat-icon class="icon">assignment</mat-icon>
+                </div>
+                <div class="description">
+                  <div class="number">
+                      {{numCorsi}}
+                  </div>
+                  <div class="subdescription">
+                      Corsi totali
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        </div>
+      </div>
+      <mat-card style="height: 480px; width: 100%;align-items: center;">
+        <h2>Distibuzione studenti per classe</h2>
+        <div class="card flex justify-content-center">
+          <p-chart type="doughnut" [data]="data" [options]="options" />
+        </div>
+      </mat-card>
+    </div>
+  </div>

@@ -1,51 +1,59 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CorsoService, DocenteService, LezioniService, RegistroService, lezione, user, verifica } from '@istruzione/shared/registro';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'istruzione-docenti',
   templateUrl: './docenti.component.html',
   styleUrls: ['./docenti.component.scss'],
 })
-export class DocentiComponent implements OnInit{
-  utente!:user
-  docenti:user[]=[];
-  voti:verifica[]=[];
-  lezioni:lezione[]=[];
-  showadd=true;
-  showupdate=true;
-  showremove=true;
+export class DocentiComponent implements OnInit,AfterViewInit {
+  utente!: user;
+  docenti: user[] = [];
+  voti: verifica[] = [];
+  lezioni: lezione[] = [];
+  showadd = false;
+  showupdate = false;
+  showremove = false;
+  displayedColumns = ['nome', 'cognome', 'email', 'azioni'];
+  dataSource = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  totDocenti = 0;
+  totClassi = 0;
+  totMaterie = 0;
   panelOpenState = false;
-  constructor(private router:Router,private docenteservice:DocenteService,private reg:RegistroService,private lez:LezioniService,private corsi:CorsoService){}
-  ngOnInit(){
-      this.utente=JSON.parse(localStorage.getItem('utente')!)
-      if (this.utente.tipo==2) this.router.navigate(['home']);
-      this.docenti= this.docenteservice.getDocentiByClass(this.utente.classe);
-      this.voti=this.reg.getVerificheByStudent(this.utente.id)
-      this.lezioni=this.lez.getLezioniByClasse(this.utente.classe)
-  }
-  getCorsi(prof:any){
-    let i="";
-    this.corsi.getCorsiByProfessore(prof).forEach((v)=>{
-      if(i==="")i=v.titolo
-      else i=i+", "+v.titolo;
-    })
-    return i;
-  }
-  getLezioni(prof:any){
-    console.log(this.lezioni)
-    return this.lezioni.filter(e=> e.docente==prof)
-  }
-  getCorso(id:any){
-    return this.corsi.getCorsoById(id)?.titolo;
-  }
-  getVoti(prof:any){
-    return this.voti.filter(e=> e.professore==prof)
-  }
-  getVoto(v:any,i:any){
-    return (this.voti[i].voti.find(e=> e.alunno==this.utente.id))?.voto
+  selected: any;
+  constructor(private router: Router, private docenteservice: DocenteService,private corsoService: CorsoService) {}
+
+  ngOnInit() {
+    this.docenteservice.getDocenti().subscribe(async (data) => {
+      this.dataSource.data = data;
+    });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  addDocente() {
+    console.log('nuovo docente');
+  }
+
+  editDocente(docente: any) {
+    this.selected = docente;
+    this.showupdate = true;
+  }
+
+  deleteDocente(docente: any) {
+    console.log(docente);
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 }

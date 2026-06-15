@@ -21,8 +21,9 @@ export class PagellaDocenteComponent implements OnInit{
     this.utente=JSON.parse(localStorage.getItem('utente')!)
     this.pag.getPagelle()
   }
-  getCorsiPagelle(){
-    return this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id))
+  getCorsiPagelle() {
+    console.log('CIAO');
+    
   }
   getPagelle(corso:any){
     return this.pag.getPagelleByCorso(corso)
@@ -30,9 +31,9 @@ export class PagellaDocenteComponent implements OnInit{
   getAlunno(alunno:any){
    return this.al.getNameAlunnobyID(alunno);
   }
-  getCorsi(){
-    this.Corsi= this.corsi.getCorsiConfirmedByProfessore(this.utente.id).filter(e=> this.pag.getAllPagella().map(e=>e.corso).includes(e.id)==false)
-    return this.Corsi;
+  getCorsi() {
+    console.log('CIAO');
+    
   }
   getAlunni(classe:any){
     return this.al.getAlunnibyClasse(classe);

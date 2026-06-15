@@ -37,8 +37,9 @@ export class InsertCompitiComponent implements OnInit{
 
     this.lezioni.getLezioni()
   }
-  getCorsi(){
-    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
+  getCorsi() {
+    console.log('CIAO');
+    
   }
   getClassi(){
     return this.utente.classe
@@ -61,7 +62,8 @@ export class InsertCompitiComponent implements OnInit{
   goBack(){
     this.router.navigate(['/'])
   }
-  getCorso(id:string){
-    return this.corsiService.getCorsoById(id)?.titolo
+  getCorso(id: string) {
+    console.log('CIAO');
+    
   }
 }

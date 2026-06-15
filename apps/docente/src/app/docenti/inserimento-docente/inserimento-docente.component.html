@@ -1,61 +1,161 @@
-<mat-stepper linear #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Classi</ng-template>
-        <mat-label>Informazioni Personali</mat-label>
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Nome</mat-label>
-            <input matInput placeholder="Nome" [(ngModel)]="nome" formControlName="firstCtrl" required>
-          </mat-form-field>
-          </p>
-          <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Cognome</mat-label>
-            <input matInput placeholder="Cognome" [(ngModel)]="cognome" formControlName="first2Ctrl" required>
-          </mat-form-field>
-        </p>
-      <div>
-        <button mat-button matStepperNext>Avanti</button>
-      </div>
-      </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-    <ng-template matStepLabel>Email</ng-template>
-    <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" formControlName="secondCtrl" required>
-    </mat-form-field>
-    </p>
-    <p>
-    <mat-form-field appearance="fill">
-      <mat-label>password</mat-label>
-        <input matInput [(ngModel)]="password"  type="password" formControlName="second2Ctrl" required>
-    </mat-form-field>
-    </p>
-    <div>
-      <button mat-button matStepperPrevious>Indietro</button>
-      <button mat-button matStepperNext>Avanti</button>
-    </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Conferma</ng-template>
-    <p>Confermi?</p>
-    <p>
-      Nome: {{nome}}
-    </p>
-    <p>
-      Cognome: {{cognome}}
-    </p>
-    <p>
-      Email: {{email}}
-    </p>
-    <div>
-        <button mat-button matStepperPrevious>Indietro</button>
-        <button mat-button (click)="saveDocente()">Confermo</button>
-    </div>
-  </mat-step>
-</mat-stepper>
+<div *ngIf="loading" class="overlay">
+  <mat-spinner></mat-spinner>
+</div>
+<form [formGroup]="docenteForm">
+	<div class="page">
+		<div>
+			<div class="header">
+				<div>
+					<h1>Nuovo Docente</h1>
+					<span>Inserimento anagrafica docente</span>
+				</div>
+			</div>
+			<mat-card class="section-card">
+				<div class="section-title">
+					<mat-icon>person</mat-icon>
+					<span>Dati Personali</span>
+				</div>
+				<div class="row">
+					<mat-form-field appearance="outline">
+						<mat-label>Nome</mat-label>
+						<input matInput formControlName="nome">
+						@if(f['nome'].hasError('required')){
+							<mat-error>
+								Nome obbligatorio
+							</mat-error>
+						}
+						@if(f['nome'].hasError('pattern')){
+							<mat-error>
+								Sono ammesse solo lettere
+							</mat-error>
+						}
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Cognome</mat-label>
+						<input matInput formControlName="cognome">
+						@if(f['cognome'].hasError('required')){
+							<mat-error>
+								Cognome obbligatorio
+							</mat-error>
+						}
+						@if(f['cognome'].hasError('pattern')){
+							<mat-error>
+								Sono ammesse solo lettere
+							</mat-error>
+						}
+					</mat-form-field>			
+				</div>
+				<mat-form-field appearance="outline">
+					<mat-label>Codice Fiscale</mat-label>
+					<input matInput formControlName="cf" style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()">
+					@if(f['cf'].hasError('required')){
+						<mat-error>
+							Codice Fiscale obbligatorio
+						</mat-error>
+					}
+					@if(f['cf'].hasError('pattern')){
+						<mat-error>
+							Codice Fiscale Errato
+						</mat-error>
+					}
+				</mat-form-field>			
+				<div class="row">
+					<mat-form-field appearance="outline">
+						<mat-label>Data di nascita</mat-label>
+						<input matInput [matDatepicker]="picker"  formControlName="birthDate">
+						<mat-datepicker-toggle
+							matSuffix
+							[for]="picker">
+						</mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+						@if(f['birthDate'].hasError('required')){
+							<mat-error>
+								Data di nascita obbligatoria
+							</mat-error>
+						}
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Luogo di nascita</mat-label>
+						<input matInput formControlName="birthPlace">
+						@if(f['birthPlace'].hasError('required')){
+							<mat-error>
+								luogo di nascita obbligatorio
+							</mat-error>
+						}
+					</mat-form-field>			
+				</div>
+				<div class="row">
+					<mat-form-field appearance="outline">
+						<mat-label>Email</mat-label>
+						<input matInput formControlName="email">
+						@if(f['email'].hasError('required')){
+							<mat-error>
+								Email obbligatoria
+							</mat-error>
+						}
+						@if(f['email'].hasError('email')){
+							<mat-error>
+								formato Email non corretto
+							</mat-error>
+						}
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Password provvisoria</mat-label>
+						<input matInput type="password"formControlName="password">
+						@if(f['password'].hasError('required')){
+							<mat-error>
+								Password obbligatoria
+							</mat-error>
+						}
+						@if(f['password'].hasError('pattern')){
+							<mat-error>
+								Minimo 8 caratteri, una maiuscola, una minuscola e un numero
+							</mat-error>
+						}
+					</mat-form-field>
+				</div>			
+				<div class="row">
+					<mat-form-field appearance="outline">
+						<mat-label>Telefono</mat-label>
+						<input matInput formControlName="telefono">
+						@if(f['telefono'].hasError('required')){
+							<mat-error>
+								Telefono obbligatorio
+							</mat-error>
+						}
+						@if(f['telefono'].hasError('pattern')){
+							<mat-error>
+								formato telefono non corretto
+							</mat-error>
+						}
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Indirizzo</mat-label>
+						<input matInput formControlName="indirizzo" >
+						@if(f['indirizzo'].hasError('required')){
+							<mat-error>
+								indirizzo obbligatorio
+							</mat-error>
+						}
+						@if(f['indirizzo'].hasError('minLength')){
+							<mat-error>
+								l'indirizzo deve essere di almeno 5 caratteri
+							</mat-error>
+						}
+					</mat-form-field>			
+				</div>
+			</mat-card>
+		</div>
+		<div style="display: flex; flex-direction: row; justify-content: space-between;">
+				<button mat-stroked-button (click)="onBack()">
+						Annulla
+				</button>
+
+				<button
+						mat-raised-button
+						color="primary" (click)="saveDocente()" [disabled]="!isValid">
+						Salva Docente
+				</button>
+		</div>
+	</div>
+</form>

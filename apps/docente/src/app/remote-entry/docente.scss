@@ -30,6 +30,118 @@
     padding-right: 5px;
   }
 }
+.card {
+  background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    height: 350px;
+    width: 350px;
+
+}
+.preside{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .dashboard{
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+  .first-line{
+    display: flex;
+    flex-direction: column;
+    .title{
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .subtitle{
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+  .card-preside{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 150px;
+  }
+  .card-number{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 650px;
+    height: 560px;
+    align-items: center;
+    .num-alunno{
+      width: 300px;
+      .icon-card{
+        background-color: #e9ebfe;
+        width: 70px;
+        border-radius: 50%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          color: #2758e0;
+        }
+      }
+    }
+    .num-docente{
+      width: 300px;
+      .icon-card{
+        background-color: #eaf6ee;
+        width: 70px;
+        border-radius: 50%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          color: #51874e;
+        }
+      }
+    }
+    .num-classi{
+      width: 300px;
+      .icon-card{
+        background-color: #f0e8fd;
+        width: 70px;
+        border-radius: 50%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          color: #6c43be;
+        }
+      }
+    }
+    .num-corsi{
+      width: 300px;
+      .icon-card{
+        background-color: #fdf2e4;
+        width: 70px;
+        border-radius: 50%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          color: #fd8920;
+        }
+      }
+    }
+  }
+}
+.icon{
+  font-size: 30px;
+  height: 30px;
+  width: 30px;
+}
+
+
 @media only screen and (max-width: 600px){
   .card-info{
     margin-top: 65px;

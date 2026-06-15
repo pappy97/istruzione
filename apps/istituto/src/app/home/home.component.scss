@@ -5,11 +5,13 @@
   flex-direction: column;
   .toolbar {
     display: flex;
-    width: 100vw;
+    width: 100%;
     justify-content: space-between;
     mat-toolbar{
-      background-color: #4A55A2;
-      color: #C5DFF8;
+      background-color: #0f368d;
+      color: #f4f4fc;
+      height: 80px;
+      
       .user{
         height: 30px;
         width: 30px;
@@ -28,7 +30,7 @@
   .views{
     display: flex;
     width: 100%;
-    height: calc(100% - 64px);
+    height: calc(100% - 80px);
     .contentr {
       display: flex;
       width: 100%;
@@ -41,53 +43,11 @@
         height: 100%;
         .sidebar{
           display: flex;
-          width: 250px;
+          width: 300px;
           height: 100%;
-          background-color: #C5DFF8;
+          background-color: #fefeff;
+          box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);;
 
-          mat-list{
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - 16px);
-            justify-content: center;
-            align-items: center;
-            mat-list-item{
-              span{
-                font-weight: 550;
-                color: #4A55A2;
-              }
-            }
-            mat-list-item:hover {
-              background-color: #4A55A2;
-              span{
-                font-weight: 550;
-                color: #C5DFF8;
-              }
-              height: 60px;
-            }
-
-            mat-list-item:active {
-              background-color: #A0BFE0;
-              span{
-                font-weight: 550;
-                color: #4A55A2;
-              }
-            }
-            .activated{
-              background-color: #7895CB;
-              span{
-                font-weight: 550;
-                color: #ffffff;
-              }
-            }
-            .activated:hover{
-              background-color: #ffffff;
-              span{
-                font-weight: 550;
-                color: #4A55A2;
-              }
-            }
-          }
         }
         mat-drawer-content{
           width: 100%;
@@ -99,6 +59,39 @@
 
   }
 }
+
+.side-menu-icon{
+  @extend .icon-sidebar-desktop;
+  color: #7c88a1;
+}
+          .first-elem-div{
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            .menu-icon{
+              @extend .icon-sidebar-desktop;
+              color: #f4f4fc;;
+            }
+            .school-icon{
+              @extend .icon-sidebar-desktop;
+              color: #f4f4fc;;
+            }
+            
+
+            .titleAndSub{
+              display: flex;
+              flex-direction: column;
+              font-family: 'Inter', sans-serif;
+              .title{
+                font-size:20px;
+                font-weight:700;
+              }
+              .subtitle{
+                font-size: 16px;
+                font-weight: 400;
+              }
+            }
+          }
 .views {
   display: flex;
   width: 100%;
@@ -115,6 +108,67 @@
 }
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.list-menu{
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  mat-list-item{
+    .subtitle{
+        font-family: 'Inter', sans-serif;
+
+    }
+  }
+  mat-list-item:hover{
+    ::ng-deep .mdc-list-item__content{
+      background-color: #f4f4fc;
+      height: 100%;
+      border-radius: 10px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .subtitle{
+      font-weight: 700;
+    }
+    .side-menu-icon{
+      color: #1f1f1f;
+    }
+  }
+ .active{
+    ::ng-deep .mdc-list-item__content{
+      background-color: #f4f4fc;
+      height: 100%;
+      border-radius: 10px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .subtitle{
+      font-weight: 700;
+    }
+    .side-menu-icon{
+      color: #1f1f1f;
+    }
+  }
+}
+
+.first-elem{
+  display: flex;
+  height: 80px !important;
+  background-color: #f4f4fc;
+}
+.my-list{
+  padding: 0 !important;
+}
+
+.icon-sidebar-desktop{
+  height: 30px;
+  width: 30px;
+  font-size: 30px;
 }
 
 @media only screen and (max-width:600px){

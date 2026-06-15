@@ -49,8 +49,9 @@ export class InsertVotoComponent implements OnInit{
     const day = (d || new Date()).getDay();
     return day !== 0 ;
   }
-  getCorsi(){
-    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
+  getCorsi() {
+    console.log('CIAO');
+    
   }
   getAlunni(){
     this.alunniback.getAlunnibyClasse(this.selected).then(alunni=>{

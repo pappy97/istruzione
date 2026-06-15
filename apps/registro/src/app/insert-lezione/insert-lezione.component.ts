@@ -39,8 +39,9 @@ export class InsertLezioneComponent implements OnInit{
 
     this.lezioni.getLezioni()
   }
-  getCorsi(){
-    this.corsi=this.corsiService.getCorsiConfirmedByProfessore(this.utente.id);
+  getCorsi() {
+    console.log('CIAO');
+    
   }
 
   saveLezione(){

@@ -1,46 +1,69 @@
-import { Component } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { AuthService, DocenteService, user } from '@istruzione/shared/registro';
+import { AuthService, DocenteService } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-inserimento-docente',
   templateUrl: './inserimento-docente.component.html',
   styleUrls: ['./inserimento-docente.component.scss'],
 })
-export class InserimentoDocenteComponent {
-  _Classi=["1A","2A","3A","4A","5A","1B","2B","3B","4B","5B","1C","2C","3C","4C","5C"]
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-    first2Ctrl: ['', Validators.required],
-
-  });
- secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-    second2Ctrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
-  });
-  nome!:string;
-  cognome!:string;
-  email!:string;
-  classe!:string;
-  password!:string;
-  constructor(private _formBuilder:FormBuilder,private auth:AuthService,private docenti:DocenteService,private router:Router){}
-  saveDocente(){
-    const a:user={
-      "classe":[],
-      "cognome":this.cognome,
-      "email":this.email,
-      "id":'',
-      "nome":this.nome,
-      "tipo":2,
-      "matricola":"",
-      "cf":''
+export class InserimentoDocenteComponent implements OnInit{
+  @Output() backPress = new EventEmitter;
+  docenteForm!:FormGroup;
+  loading=false;
+  
+  constructor(private _formBuilder: FormBuilder, private auth: AuthService, private docentiService: DocenteService, private router: Router, private dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('it-IT');
+  }
+  
+  onBack(){
+    this.backPress.emit();
+  }
+  
+  ngOnInit(): void {
+    this.docenteForm = this._formBuilder.group({
+      nome: ['',[Validators.required,Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$/)]],
+      cognome: ['',[Validators.required,Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$/)]],
+      cf: ['',[Validators.required,Validators.pattern(/^[A-Z0-9]{16}$/)]],
+      birthDate: ['',[Validators.required]],
+      birthPlace: ['',[Validators.required]],
+      email: ['',[Validators.required,Validators.email]],
+      password: ['',[Validators.required,Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
+      telefono: ['',[Validators.required,Validators.pattern(/^[0-9]{9,10}$/)]],
+      indirizzo: ['',[Validators.required,Validators.minLength(5)]]
+    })
+  }
+  
+  async saveDocente() {
+    this.loading = true;
+    try {
+      await this.docentiService.addDocente({
+        nome: this.docenteForm.controls['nome'].value,
+        cognome: this.docenteForm.controls['cognome'].value,
+        cf: this.docenteForm.controls['cf'].value,
+        dataNascita: this.docenteForm.controls['birthDate'].value,
+        luogoNascita: this.docenteForm.controls['birthPlace'].value,
+        email: this.docenteForm.controls['email'].value,
+        password: this.docenteForm.controls['password'].value,
+        telefono:this.docenteForm.controls['telefono'].value,
+        indirizzo:this.docenteForm.controls['indirizzo'].value,
+        tipo: 2
+      });
+      this.router.navigate(['']);
+    }catch(error){
+      console.error('ERRORE',error)
+    }finally{
+      this.loading = false
     }
-    this.auth.SignUp(this.email,this.password)
-    this.docenti.addDocente(a);
-    this.router.navigate(['/home/docente'])
+  }
+  
+  get f() {
+    return this.docenteForm.controls;
+  }
+  
+  get isValid(){
+    return this.docenteForm.valid
   }
 }

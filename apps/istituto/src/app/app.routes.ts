@@ -3,9 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { loadRemoteModule } from '@nx/angular/mf';
 import { AppComponent } from './app.component';
-import { CompitiComponent } from './compiti/compiti.component';
-import { ClassComponent } from './class/class.component';
-import { OrarioComponent } from './orario/orario.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const appRoutes: Route[] = [
   {
@@ -21,6 +19,10 @@ export const appRoutes: Route[] = [
     component: HomeComponent,
     children: [
       {
+        path: 'homepage',
+        component: DashboardComponent,
+      },
+      {
         path: 'docente',
         loadChildren: () =>
           loadRemoteModule('docente', './Module').then(
@@ -32,6 +34,13 @@ export const appRoutes: Route[] = [
         path: 'alunno',
         loadChildren: () =>
           loadRemoteModule('alunno', './Module').then(
+            (m) => m.RemoteEntryModule
+          ),
+      },
+      {
+        path: 'classi',
+        loadChildren: () =>
+          loadRemoteModule('classi', './Module').then(
             (m) => m.RemoteEntryModule
           ),
       },
@@ -55,19 +64,6 @@ export const appRoutes: Route[] = [
           loadRemoteModule('pagelle', './Module').then(
             (m) => m.RemoteEntryModule
           ),
-      },
-      {
-        path: 'compiti',
-        component: CompitiComponent,
-      },
-
-      {
-        path: 'classi',
-        component: ClassComponent,
-      },
-      {
-        path: 'orario',
-        component: OrarioComponent,
       },
     ],
   },

@@ -1,0 +1,19 @@
+.icon-edit{
+    color: #446fe8;
+}
+.icon-delete{
+    color: #a2a2b6;
+}
+.action{
+    display: flex;
+    height: inherit;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.first-line{
+    height: 75px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+}

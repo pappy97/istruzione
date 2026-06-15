@@ -1,0 +1,83 @@
+<div class="page-container">
+
+  <div class="header">
+    <h1>Nuova Classe</h1>
+    <p>Crea una nuova classe e assegna il coordinatore.</p>
+  </div>
+
+  <mat-card class="form-card">
+
+    <form>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Anno</mat-label>
+          <mat-select [(ngModel)]="classe.anno" name="classe">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sezione</mat-label>
+          <input
+            matInput
+            [(ngModel)]="classe.sezione"
+            name="sezione"
+            placeholder="A">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Coordinatore</mat-label>
+
+          <mat-select
+            [(ngModel)]="classe.coordinatoreId"
+            name="coordinatore">
+
+            <mat-option
+              *ngFor="let docente of docenti"
+              [value]="docente.id">
+
+              {{docente.nome}} {{docente.cognome}}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Max Studenti</mat-label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="classe.maxStudenti"
+            name="maxStudenti">
+        </mat-form-field>
+
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button (click)="onBack()">
+          Annulla
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="saveClasse()">
+
+          Salva Classe
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </mat-card>
+
+</div>

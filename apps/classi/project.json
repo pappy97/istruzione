@@ -1,0 +1,106 @@
+{
+  "name": "classi",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/classi/src",
+  "prefix": "istruzione",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/classi",
+        "index": "apps/classi/src/index.html",
+        "main": "apps/classi/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/classi/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/classi/src/favicon.ico", "apps/classi/src/assets"],
+        "styles": ["apps/classi/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/classi/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/classi/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "classi:build:production"
+        },
+        "development": {
+          "buildTarget": "classi:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4207,
+        "publicHost": "http://localhost:4207"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "classi:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/classi/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "classi:build",
+        "port": 4207
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "classi:build:development"
+        },
+        "production": {
+          "buildTarget": "classi:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

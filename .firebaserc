@@ -7,6 +7,7 @@
       "hosting": {
         "istituto": ["tesi-mfe-istruzione"],
         "alunno": ["tesi-mfe-alunno"],
+        "classi": ["tesi-mfe-classi"],
         "docente":["tesi-mfe-docente"],
         "pagelle":["tesi-mfe-pagelle"],
         "registro":["tesi-mfe-registro"],

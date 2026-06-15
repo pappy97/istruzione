@@ -2,8 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, query } from '@angular/fire/firestore';
-import { where } from 'firebase/firestore';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "deploy": "nx run istituto:build  && nx run alunno:build && nx run docente:build && nx run registro:build && nx run corsi:build && nx run pagelle:build && firebase deploy --only hosting"
+    "deploy": "nx run istituto:build  && nx run alunno:build && nx run classi:build && nx run docente:build && nx run registro:build && nx run corsi:build && nx run pagelle:build && firebase deploy --only hosting"
   },
   "private": true,
   "devDependencies": {
@@ -23,8 +23,13 @@
     "@nx/eslint-plugin": "17.3.2",
     "@nx/jest": "17.3.2",
     "@nx/js": "17.3.2",
+    "@nx/web": "17.3.2",
+    "@nx/webpack": "17.3.2",
     "@nx/workspace": "17.3.2",
     "@schematics/angular": "17.1.4",
+    "@swc-node/register": "~1.6.7",
+    "@swc/core": "~1.3.85",
+    "@swc/helpers": "~0.5.2",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.16.9",
     "@typescript-eslint/eslint-plugin": "6.13.2",
@@ -36,6 +41,7 @@
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "13.1.6",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "17.3.2",
     "prettier": "^2.6.2",
     "ts-jest": "29.1.5",
@@ -50,13 +56,16 @@
     "@angular/core": "17.1.3",
     "@angular/fire": "^17.1.0",
     "@angular/forms": "17.1.3",
+    "@angular/google-maps": "^17.3.10",
     "@angular/material": "17.1.2",
     "@angular/platform-browser": "17.1.3",
     "@angular/platform-browser-dynamic": "17.1.3",
     "@angular/router": "17.1.3",
     "@nx/angular": "16.9.1",
-    "firebase": "^9.23.0",
+    "chart.js": "^4.5.1",
+    "firebase": "^10.14.1",
     "ngx-spinner": "^16.0.2",
+    "primeng": "^17.18.15",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "0.14.8"

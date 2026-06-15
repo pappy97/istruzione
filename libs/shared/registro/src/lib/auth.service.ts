@@ -56,7 +56,6 @@ export class AuthService {
       .then(async (result) => {
         if (result.user) {
           await sendEmailVerification(result.user);
-          await this.setUserData(result.user);
         }
       })
       .catch((error) => {

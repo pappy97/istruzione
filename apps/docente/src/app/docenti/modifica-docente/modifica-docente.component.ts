@@ -1,62 +1,89 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { user, AuthService, DocenteService } from '@istruzione/shared/registro';
-import { Observable, startWith, map } from 'rxjs';
+import { user, DocenteService } from '@istruzione/shared/registro';
 
 @Component({
   selector: 'istruzione-modifica-docente',
   templateUrl: './modifica-docente.component.html',
   styleUrls: ['./modifica-docente.component.scss'],
 })
-export class ModificaDocenteComponent implements OnInit{
-  stateCtrl = new FormControl('');
-  filteredDocenti!: Observable<user[]>;
-  selected!:string;
-  docente!: user;
-  toUpdate:user={
-    "classe":"",
-    "cognome":"",
-    "email":"",
-    "id":"",
-    "nome":"",
-    "tipo":1,
-    "matricola":"",
-    "cf":''
-  };
+export class ModificaDocenteComponent implements OnInit {
+  @Output() backPress = new EventEmitter();
+  @Input() docente!: user;
+  docenteForm!: FormGroup;
+  loading = false;
 
-  docenti!:user[];
-  _Classi=["1A","2A","3A","4A","5A","1B","2B","3B","4B","5B","1C","2C","3C","4C","5C"]
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+  constructor(
+    private _formBuilder: FormBuilder,
+    private docentiService: DocenteService
+  ) {}
 
-  });
- secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
-  });
-  constructor(private _formBuilder:FormBuilder,private auth:AuthService,private docentiService:DocenteService,private router:Router){
-    this.filteredDocenti = this.stateCtrl.valueChanges.pipe(
-      startWith(''),
-      map(docente => (docente ? this._filterdocenti(docente) : this.docenti.slice())),
-    );
+  onBack() {
+    this.backPress.emit();
   }
-  tryvalue(){
-    const a=this.docentiService.getDocenteById(this.stateCtrl.value!)!
-    this.toUpdate=a;
+
+  ngOnInit(): void {
+    this.docenteForm = this._formBuilder.group({
+      nome: [
+        this.docente?.nome ?? '',
+        [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$/)],
+      ],
+      cognome: [
+        this.docente?.cognome ?? '',
+        [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$/)],
+      ],
+      cf: [
+        this.docente?.cf ?? '',
+        [Validators.required, Validators.pattern(/^[A-Z0-9]{16}$/)],
+      ],
+      birthDate: [this.docente?.dataNascita ?? '', [Validators.required]],
+      birthPlace: [this.docente?.luogoNascita ?? '', [Validators.required]],
+      email: [
+        this.docente?.email ?? '',
+        [Validators.required, Validators.email],
+      ],
+      telefono: [
+        this.docente?.telefono ?? '',
+        [Validators.required, Validators.pattern(/^[0-9]{9,10}$/)],
+      ],
+      indirizzo: [
+        this.docente?.indirizzo ?? '',
+        [Validators.required, Validators.minLength(5)],
+      ],
+    });
   }
-  private _filterdocenti(value: string): user[] {
-    const filterValue = value.toLowerCase();
-    return this.docenti.filter(al => al.nome.toLowerCase().includes(filterValue)|| al.cognome.toLowerCase().includes(filterValue)|| al.id.includes(filterValue));
+
+  async saveDocente() {
+    this.loading = true;
+    try {
+      await this.docentiService.updateDocente({
+        ...this.docente,
+        nome: this.docenteForm.controls['nome'].value,
+        cognome: this.docenteForm.controls['cognome'].value,
+        cf: this.docenteForm.controls['cf'].value,
+        dataNascita: this.docenteForm.controls['birthDate'].value,
+        luogoNascita: this.docenteForm.controls['birthPlace'].value,
+        email: this.docenteForm.controls['email'].value,
+        telefono: this.docenteForm.controls['telefono'].value,
+        indirizzo: this.docenteForm.controls['indirizzo'].value,
+        tipo: 2,
+      });
+      this.onBack();
+    } catch (error) {
+      console.error('ERRORE', error);
+    } finally {
+      this.loading = false;
+    }
   }
-  ngOnInit(){
-    this.docenti=this.docentiService.getAllDocenti()
+
+  get f() {
+    return this.docenteForm.controls;
   }
-  updateDocente(){
-    this.docentiService.updateDocente(this.toUpdate)
-    this.router.navigate(['/home/docente'])
+
+  get isValid() {
+    return this.docenteForm.valid && this.docenteForm.dirty;
   }
+
 }

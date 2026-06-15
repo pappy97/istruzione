@@ -25,8 +25,8 @@ export class VerificaStudenteComponent implements OnInit{
     if (i!= undefined) return i.voto
     else return null
   }
-  getCorso(ver:any){
-    let a=this.corsiService.getCorsoById(ver)
-    return a?.titolo
+  getCorso(ver: any) {
+    console.log('CIAO');
+    
   }
 }

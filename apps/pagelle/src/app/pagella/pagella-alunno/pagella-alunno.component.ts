@@ -25,17 +25,11 @@ export class PagellaAlunnoComponent implements OnInit{
   getPagelleConfirmed(){
     return this.pagelle.filter(e=>e.isconfirmed==true)
   }
-  getCorso(id:any){
-   return this.corso.getCorsoById(id)?.titolo
+  getCorso(id: any) {
+    console.log('CIAO');
+    
   }
   getDocenti(id:any){
-    const docs= this.corso.getCorsoById(id)?.docenti
-    let toreturn=""
-    docs?.forEach(e=>{
-      const d=this.doc.getDocenteById(e)
-      if(toreturn=="") toreturn=d?.cognome+" "+d?.nome
-      else toreturn= toreturn+", "+d?.cognome+" "+d?.nome
-    })
-    return toreturn
+    console.log("CIAO")
   }
 }

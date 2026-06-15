@@ -20,12 +20,11 @@ export class LezioniComponent implements OnInit{
     this.utente=JSON.parse(localStorage.getItem("utente")!)
   }
   getCorso(ver:any){
-    const a=this.corsiService.getCorsoById(ver)
-    return a?.titolo
+    console.log("CIAO")
   }
-  getDocente(prof:any){
-    const a = this.docentiservice.getDocenteById(prof);
-    return a?.nome+" "+a?.cognome
+  getDocente(prof: any) {
+    console.log('CIAO');
+    
   }
   goToinsert(){
     this.router.navigate([this.router.url+'/insertLezione'])

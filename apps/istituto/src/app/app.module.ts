@@ -6,15 +6,15 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { FormsModule } from '@angular/forms';
-import { NgxSpinnerModule } from "ngx-spinner"
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ChartModule } from 'primeng/chart';
 
 import { AuthService } from '@istruzione/shared/registro';
 import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-
-import { DataService } from '@istruzione/shared/registro';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,30 +31,33 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { CompitiComponent } from './compiti/compiti.component';
-import { ClassComponent } from './class/class.component';
-import { OrarioComponent } from './orario/orario.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardAlunnoComponent } from './dashboard/dashboard-alunno/dashboard-alunno.component';
+import { DashboardDocenteComponent } from './dashboard/dashboard-docente/dashboard-docente.component';
+import { DashboardPresideComponent } from './dashboard/dashboard-preside/dashboard-preside.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CompitiComponent,
-    ClassComponent,
-    OrarioComponent,
+    DashboardComponent,
+    DashboardAlunnoComponent,
+    DashboardDocenteComponent,
+    DashboardPresideComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule ,
+    NgxSpinnerModule,
 
     HttpClientModule,
 
@@ -76,11 +79,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    ChartModule,
+    MatTableModule
   ],
-  providers: [AuthService,
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
+  providers: [
+    AuthService,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
   ],
   bootstrap: [AppComponent],
 })
